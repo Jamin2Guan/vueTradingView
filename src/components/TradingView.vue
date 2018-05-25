@@ -15,7 +15,7 @@ export default {
     tradingViewInit () {
       window.TradingView.onready(() => {
         let widget = new window.TradingView.widget({ // eslint-disable-line
-          debug: true, // uncomment this line to see Library errors and warnings in the console
+          // debug: true, // uncomment this line to see Library errors and warnings in the console
           width: '100%',
           height: '100%',
           time_frames: [],
