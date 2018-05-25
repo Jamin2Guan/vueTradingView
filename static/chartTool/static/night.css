@@ -1,4 +1,4 @@
-npm.chart-page {
+.chart-page {
   background: #181B2A; }
   .chart-page .pane-legend-icon-container svg {
     fill: #61688A; }
@@ -132,7 +132,7 @@ npm.chart-page {
     border-right: 1px solid #181B2A;
     background-color: #181B2A; }
     .chart-page .tv-side-toolbar .tools-group .button.selected .side {
-      border-left: 1ps solid transparent; }
+      border-left: 1px solid transparent; }
     .chart-page .tv-side-toolbar .tools-group .button.selected .side, .chart-page .tv-side-toolbar .tools-group .button.selected .main {
       background: #2C3B59; }
   .chart-page .chart-container {
@@ -150,3 +150,19 @@ npm.chart-page {
       background-color: #4e5b85 !important; }
       .chart-page .button.selected svg, .chart-page .button.active svg {
         fill: #181B2A; }
+
+.favored-list-container span.disabled,
+.feature-no-touch .favored-list-container span.disabled:active,
+.feature-touch .favored-list-container span.disabled:active,
+.charts-popup-list .item span{
+  background: transparent;
+  color: transparent;
+  color: #4e5b85 !important;
+}
+.favored-list-container span.selected {
+  background: transparent;
+}
+.pane-legend-line.apply-overflow-tooltip.main,pane-legend-icon-container {
+  display: none;
+}
+

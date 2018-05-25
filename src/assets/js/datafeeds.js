@@ -38,9 +38,9 @@ class Requester {
  */
 class SymbolsStorage {
   constructor(datafeedSupportedResolutions, requester) {
-    this.exchangesList = ['NYSE', 'FOREX', 'AMEX']
-    this.symbolsInfo = {}
-    this.symbolsList = []
+    // this.exchangesList = []
+    // this.symbolsInfo = {}
+    // this.symbolsList = []
     this.datafeedSupportedResolutions = datafeedSupportedResolutions
     this.requester = requester
     this.readyPromise = this.init()
@@ -62,52 +62,53 @@ class SymbolsStorage {
   }
 
   searchSymbols(searchString, exchange, symbolType, maxSearchResults) {
-    return this.readyPromise.then(() => {
-      const weightedResult = []
-      const queryIsEmpty = searchString.length === 0
-      const searchString = searchString.toUpperCase()
-      const loop = symbolName => {
-        const symbolInfo = this.symbolsInfo[symbolName]
-        if (symbolInfo === undefined) {
-          return 'continue'
-        }
-        if (symbolType.length > 0 && symbolInfo.type !== symbolType) {
-          return 'continue'
-        }
-        if (exchange && exchange.length > 0 && symbolInfo.exchange !== exchange) {
-          return 'continue'
-        }
-        const positionInName = symbolInfo.name.toUpperCase().indexOf(searchString)
-        const positionInDescription = symbolInfo.description.toUpperCase().indexOf(searchString)
-        if (queryIsEmpty || positionInName >= 0 || positionInDescription >= 0) {
-          const alreadyExists = weightedResult.some(function (item) {
-            return item.symbolInfo === symbolInfo
-          })
-          if (!alreadyExists) {
-            const weight = positionInName >= 0 ? positionInName : 8000 + positionInDescription
-            weightedResult.push({symbolInfo: symbolInfo, weight: weight})
-          }
-        }
-      }
-      for (let i = 0; i < this.symbolsList.length; i++) {
-        const symbolName = this.symbolsList[i]
-        loop(symbolName)
-      }
-      const result = weightedResult.sort((item1, item2) => item1.weight - item2.weight).slice(0, maxSearchResults)
-        .map(function (item) {
-          const symbolInfo = item.symbolInfo
-          return {
-            symbol: symbolInfo.name,
-            full_name: symbolInfo.full_name,
-            description: symbolInfo.description,
-            exchange: symbolInfo.exchange,
-            params: [],
-            type: symbolInfo.type,
-            ticker: symbolInfo.name
-          }
-        })
-      return Promise.resolve(result)
-    })
+    // return this.readyPromise.then(() => {
+    //   const weightedResult = []
+    //   const queryIsEmpty = searchString.length === 0
+    //   const searchString = searchString.toUpperCase()
+    //   const loop = symbolName => {
+    //     const symbolInfo = this.symbolsInfo[symbolName]
+    //     if (symbolInfo === undefined) {
+    //       return 'continue'
+    //     }
+    //     if (symbolType.length > 0 && symbolInfo.type !== symbolType) {
+    //       return 'continue'
+    //     }
+    //     if (exchange && exchange.length > 0 && symbolInfo.exchange !== exchange) {
+    //       return 'continue'
+    //     }
+    //     const positionInName = symbolInfo.name.toUpperCase().indexOf(searchString)
+    //     const positionInDescription = symbolInfo.description.toUpperCase().indexOf(searchString)
+    //     if (queryIsEmpty || positionInName >= 0 || positionInDescription >= 0) {
+    //       const alreadyExists = weightedResult.some(function (item) {
+    //         return item.symbolInfo === symbolInfo
+    //       })
+    //       if (!alreadyExists) {
+    //         const weight = positionInName >= 0 ? positionInName : 8000 + positionInDescription
+    //         weightedResult.push({symbolInfo: symbolInfo, weight: weight})
+    //       }
+    //     }
+    //   }
+    //   for (let i = 0; i < this.symbolsList.length; i++) {
+    //     const symbolName = this.symbolsList[i]
+    //     loop(symbolName)
+    //   }
+    //   const result = weightedResult.sort((item1, item2) => item1.weight - item2.weight).slice(0, maxSearchResults)
+    //     .map(function (item) {
+    //       const symbolInfo = item.symbolInfo
+    //       return {
+    //         symbol: symbolInfo.name,
+    //         full_name: symbolInfo.full_name,
+    //         description: symbolInfo.description,
+    //         exchange: symbolInfo.exchange,
+    //         params: [],
+    //         type: symbolInfo.type,
+    //         ticker: symbolInfo.name
+    //       }
+    //     })
+    //   return Promise.resolve(result)
+    // })
+    Promise.resolve([])
   }
 
   init() {
@@ -371,9 +372,33 @@ let datas = [
     "v": [19904679, 49482818, 33159664, 26733798, 22340069, 19430358, 19118319, 19044463, 21632202],
     "s": "ok"
   },
-  {"t":[1493078400,1493164800,1493251200,1493337600,1493596800,1493683200,1493769600,1493856000,1493942400,1494201600,1494288000,1494374400,1494460800,1494547200,1494806400],"o":[143.91,144.47,143.9225,144.09,145.1,147.54,145.59,146.52,146.76,149.03,153.87,153.63,152.45,154.7,156.01],"h":[144.9,144.6,144.16,144.3,147.2,148.09,147.49,147.14,148.98,153.7,154.88,153.94,154.07,156.42,156.65],"l":[143.87,143.3762,143.31,143.27,144.96,146.84,144.27,145.81,146.76,149.03,153.45,152.11,152.31,154.67,155.05],"c":[144.54,143.6508,143.79,143.65,146.6,147.51,147.06,146.53,148.96,153,153.96,153.26,153.95,156.1,155.7],"v":[18216472,19614287,13948980,20247187,32818760,39752670,45142806,23275690,26787359,48339210,35942435,25670456,25596687,32221756,25700983],"s":"ok"},
-  {"t":[1488844800,1488931200,1489017600,1489104000,1489363200,1489449600,1489536000,1489622400,1489708800,1489968000,1490054400,1490140800,1490227200,1490313600,1490572800,1490659200,1490745600,1490832000,1490918400,1491177600,1491264000,1491350400,1491436800,1491523200,1491782400,1491868800,1491955200,1492041600,1492387200,1492473600,1492560000,1492646400,1492732800,1492992000],"o":[139.06,138.95,138.74,139.25,138.85,139.3,139.41,140.72,141,140.4,142.11,139.845,141.26,141.5,139.39,140.91,143.68,144.19,143.72,143.71,143.25,144.22,144.29,143.73,143.6,142.94,141.6,141.91,141.48,141.41,141.88,141.22,142.44,143.5],"h":[139.98,139.8,138.79,139.3571,139.43,139.65,140.7501,141.02,141,141.5,142.8,141.6,141.5844,141.74,141.22,144.04,144.49,144.5,144.27,144.12,144.89,145.46,144.52,144.18,143.8792,143.35,142.15,142.38,141.88,142.04,142,142.92,142.68,143.95],"l":[138.79,138.82,137.05,138.64,138.82,138.84,139.025,140.26,139.89,140.23,139.73,139.76,140.61,140.35,138.62,140.62,143.19,143.5,143.01,143.05,143.17,143.81,143.45,143.27,142.9,140.06,141.01,141.05,140.87,141.11,140.45,141.16,141.85,143.18],"c":[139.52,139,138.68,139.14,139.2,138.99,140.46,140.69,139.99,141.46,139.84,141.42,140.92,140.64,140.88,143.8,144.12,143.93,143.66,143.7,144.77,144.02,143.66,143.34,143.17,141.63,141.8,141.05,141.83,141.2,140.68,142.44,142.27,143.64],"v":[17446297,18707236,22155904,19612801,17421717,15309065,25691774,19231998,43884952,21542038,39529912,25860165,20346301,22395563,23575094,33374805,29189955,21207252,19661651,19985714,19891354,27717854,21149034,16658543,18933397,30379376,20350000,17822880,16582094,14697544,17328375,23319562,17320928,17116599],"s":"ok"},
-  {"t":[1480291200,1480377600,1480464000,1480550400,1480636800,1480896000,1480982400,1481068800,1481155200,1481241600,1481500800,1481587200,1481673600],"o":[111.43,110.78,111.56,110.365,109.17,110,109.5,109.26,110.86,112.31,113.29,113.84,115.04],"h":[112.465,112.03,112.2,110.94,110.09,110.03,110.36,111.19,112.43,114.7,115,115.92,116.2],"l":[111.39,110.07,110.27,109.03,108.85,108.25,109.19,109.16,110.6,112.31,112.49,113.75,114.98],"c":[111.57,111.46,110.52,109.49,109.9,109.11,109.95,111.03,112.12,113.95,113.3,115.19,115.19],"v":[27193983,28528750,36162258,37086862,26527997,34324540,26195462,29998719,27068316,34402627,26374377,43733811,34031834],"s":"ok"},
+  {
+    "t": [1493078400, 1493164800, 1493251200, 1493337600, 1493596800, 1493683200, 1493769600, 1493856000, 1493942400, 1494201600, 1494288000, 1494374400, 1494460800, 1494547200, 1494806400],
+    "o": [143.91, 144.47, 143.9225, 144.09, 145.1, 147.54, 145.59, 146.52, 146.76, 149.03, 153.87, 153.63, 152.45, 154.7, 156.01],
+    "h": [144.9, 144.6, 144.16, 144.3, 147.2, 148.09, 147.49, 147.14, 148.98, 153.7, 154.88, 153.94, 154.07, 156.42, 156.65],
+    "l": [143.87, 143.3762, 143.31, 143.27, 144.96, 146.84, 144.27, 145.81, 146.76, 149.03, 153.45, 152.11, 152.31, 154.67, 155.05],
+    "c": [144.54, 143.6508, 143.79, 143.65, 146.6, 147.51, 147.06, 146.53, 148.96, 153, 153.96, 153.26, 153.95, 156.1, 155.7],
+    "v": [18216472, 19614287, 13948980, 20247187, 32818760, 39752670, 45142806, 23275690, 26787359, 48339210, 35942435, 25670456, 25596687, 32221756, 25700983],
+    "s": "ok"
+  },
+  {
+    "t": [1488844800, 1488931200, 1489017600, 1489104000, 1489363200, 1489449600, 1489536000, 1489622400, 1489708800, 1489968000, 1490054400, 1490140800, 1490227200, 1490313600, 1490572800, 1490659200, 1490745600, 1490832000, 1490918400, 1491177600, 1491264000, 1491350400, 1491436800, 1491523200, 1491782400, 1491868800, 1491955200, 1492041600, 1492387200, 1492473600, 1492560000, 1492646400, 1492732800, 1492992000],
+    "o": [139.06, 138.95, 138.74, 139.25, 138.85, 139.3, 139.41, 140.72, 141, 140.4, 142.11, 139.845, 141.26, 141.5, 139.39, 140.91, 143.68, 144.19, 143.72, 143.71, 143.25, 144.22, 144.29, 143.73, 143.6, 142.94, 141.6, 141.91, 141.48, 141.41, 141.88, 141.22, 142.44, 143.5],
+    "h": [139.98, 139.8, 138.79, 139.3571, 139.43, 139.65, 140.7501, 141.02, 141, 141.5, 142.8, 141.6, 141.5844, 141.74, 141.22, 144.04, 144.49, 144.5, 144.27, 144.12, 144.89, 145.46, 144.52, 144.18, 143.8792, 143.35, 142.15, 142.38, 141.88, 142.04, 142, 142.92, 142.68, 143.95],
+    "l": [138.79, 138.82, 137.05, 138.64, 138.82, 138.84, 139.025, 140.26, 139.89, 140.23, 139.73, 139.76, 140.61, 140.35, 138.62, 140.62, 143.19, 143.5, 143.01, 143.05, 143.17, 143.81, 143.45, 143.27, 142.9, 140.06, 141.01, 141.05, 140.87, 141.11, 140.45, 141.16, 141.85, 143.18],
+    "c": [139.52, 139, 138.68, 139.14, 139.2, 138.99, 140.46, 140.69, 139.99, 141.46, 139.84, 141.42, 140.92, 140.64, 140.88, 143.8, 144.12, 143.93, 143.66, 143.7, 144.77, 144.02, 143.66, 143.34, 143.17, 141.63, 141.8, 141.05, 141.83, 141.2, 140.68, 142.44, 142.27, 143.64],
+    "v": [17446297, 18707236, 22155904, 19612801, 17421717, 15309065, 25691774, 19231998, 43884952, 21542038, 39529912, 25860165, 20346301, 22395563, 23575094, 33374805, 29189955, 21207252, 19661651, 19985714, 19891354, 27717854, 21149034, 16658543, 18933397, 30379376, 20350000, 17822880, 16582094, 14697544, 17328375, 23319562, 17320928, 17116599],
+    "s": "ok"
+  },
+  {
+    "t": [1480291200, 1480377600, 1480464000, 1480550400, 1480636800, 1480896000, 1480982400, 1481068800, 1481155200, 1481241600, 1481500800, 1481587200, 1481673600],
+    "o": [111.43, 110.78, 111.56, 110.365, 109.17, 110, 109.5, 109.26, 110.86, 112.31, 113.29, 113.84, 115.04],
+    "h": [112.465, 112.03, 112.2, 110.94, 110.09, 110.03, 110.36, 111.19, 112.43, 114.7, 115, 115.92, 116.2],
+    "l": [111.39, 110.07, 110.27, 109.03, 108.85, 108.25, 109.19, 109.16, 110.6, 112.31, 112.49, 113.75, 114.98],
+    "c": [111.57, 111.46, 110.52, 109.49, 109.9, 109.11, 109.95, 111.03, 112.12, 113.95, 113.3, 115.19, 115.19],
+    "v": [27193983, 28528750, 36162258, 37086862, 26527997, 34324540, 26195462, 29998719, 27068316, 34402627, 26374377, 43733811, 34031834],
+    "s": "ok"
+  },
 ]
 
 let resPart = 0
@@ -517,19 +542,19 @@ class Datafeeds {
    * @param {*Function} onRealtimeCallback
    * @param {*监听的唯一标识符} listenerGuid
    */
-  subscribeQuotes(symbols, fastSymbols, onRealtimeCallback, listenerGuid) {
-    this.logMessage(' >> Call subscribeQuotes: ', symbols, fastSymbols, listenerGuid)
-    this.quotesPulseProvider.subscribeQuotes(symbols, fastSymbols, onRealtimeCallback, listenerGuid)
-  }
+  // subscribeQuotes(symbols, fastSymbols, onRealtimeCallback, listenerGuid) {
+  //   this.logMessage(' >> Call subscribeQuotes: ', symbols, fastSymbols, listenerGuid)
+  //   this.quotesPulseProvider.subscribeQuotes(symbols, fastSymbols, onRealtimeCallback, listenerGuid)
+  // }
 
   /**
    * 交易终端当不需要再接收商品的实时报价时调用此函数
    * @param {*监听的唯一标识符} listenerGuid
    */
-  unsubscribeQuotes(listenerGuid) {
-    this.logMessage(' >> Call unsubscribeQuotes: ', listenerGuid)
-    this.quotesPulseProvider.unsubscribeQuotes(listenerGuid)
-  }
+  // unsubscribeQuotes(listenerGuid) {
+  //   this.logMessage(' >> Call unsubscribeQuotes: ', listenerGuid)
+  //   this.quotesPulseProvider.unsubscribeQuotes(listenerGuid)
+  // }
 
   /**
    * 图表库在它要请求一些历史数据的时候会调用这个函数
@@ -722,7 +747,42 @@ class Datafeeds {
    * 请求配置信息
    */
   requestConfiguration() {
-    return this.send('/config')
+    // return this.send('/config')
+    return Promise.resolve({
+      "supports_search": true,
+      "supports_group_request": false,
+      "supports_marks": false,
+      "supports_timescale_marks": false,
+      "supports_time": false,
+      "exchanges": [
+        // {
+        //   "value": "",
+        //   "name": "All Exchanges",
+        //   "desc": ""
+        // },
+        // {
+        //   "value": "NasdaqNM",
+        //   "name": "NasdaqNM",
+        //   "desc": "NasdaqNM"
+        // },
+        // {
+        //   "value": "NYSE",
+        //   "name": "NYSE",
+        //   "desc": "NYSE"
+        // },
+        // {
+        //   "value": "NCM",
+        //   "name": "NCM",
+        //   "desc": "NCM"
+        // },
+        // {
+        //   "value": "NGM",
+        //   "name": "NGM",
+        //   "desc": "NGM"
+        // }
+      ],
+      "supported_resolutions": ["1", "5", "15", "30", "60", "360", "720", "D", "W", "M"]
+    })
   }
 
   /**

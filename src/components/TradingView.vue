@@ -7,38 +7,18 @@
 
 <script>
 import Datafeeds from '../assets/js/datafeeds'
+
 console.log(Datafeeds)
 export default {
   name: 'trade-view',
   methods: {
     tradingViewInit () {
-      // new TradingView.widget( // eslint-disable-line
-      //   {
-      //     'autosize': true,
-      //     'symbol': 'COINBASE:BTCUSD',
-      //     'interval': 'D',
-      //     'timezone': 'Etc/UTC',
-      //     'theme': 'Dark',
-      //     'style': '3',
-      //     'locale': 'zh_CN',
-      //     'toolbar_bg': '#f1f3f6',
-      //     'enable_publishing': false,
-      //     'hide_side_toolbar': false,
-      //     'allow_symbol_change': true,
-      //     'save_image': false,
-      //     'details': true,
-      //     'studies': [
-      //       'MACD@tv-basicstudies'
-      //     ],
-      //     'container_id': 'trade-view-root'
-      //   }
-      // )
       window.TradingView.onready(() => {
-        window.tvWidget = new window.TradingView.widget({ // eslint-disable-line
+        let widget = new window.TradingView.widget({ // eslint-disable-line
           debug: true, // uncomment this line to see Library errors and warnings in the console
-          time_frames: [
-            { text: '1y', resolution: 'D' }
-          ],
+          width: '100%',
+          height: '100%',
+          time_frames: [],
           fullscreen: false,
           symbol: 'AAPL',
           interval: 'D',
@@ -46,11 +26,48 @@ export default {
           datafeed: new Datafeeds('https://demo_feed.tradingview.com'),
           library_path: '/static/chartTool/',
           locale: 'zh',
+          timezone: 'Asia/Hong_Kong',
           drawings_access: { type: 'black', tools: [ { name: 'Regression Trend' } ] },
-          disabled_features: ['compare_symbol', 'display_market_status', 'go_to_date', 'header_chart_type', 'header_compare', 'header_interval_dialog_button', 'header_resolutions', 'header_screenshot', 'header_symbol_search', 'header_undo_redo', 'legend_context_menu', 'show_hide_button_in_legend', 'show_interval_dialog_on_key_press', 'snapshot_trading_drawings', 'symbol_info', 'use_localstorage_for_settings', 'volume_force_overlay'],
-          enabled_features: ['timeframes_toolbar', 'dont_show_boolean_study_arguments', 'hide_last_na_study_output', 'same_data_requery', 'side_toolbar_in_fullscreen_mode', 'disable_resolution_rebuild'],
+          disabled_features: [
+            // 'main_series_scale_menu',
+            'pane_context_menu',
+            'header_fullscreen_button',
+            'go_to_date',
+            'header_compare',
+            'header_interval_dialog_button',
+            'header_screenshot',
+            'header_symbol_search',
+            'header_undo_redo',
+            // 'legend_context_menu',
+            // 'show_hide_button_in_legend',
+            // 'show_interval_dialog_on_key_press',
+            // 'snapshot_trading_drawings',
+            'symbol_info',
+            // 'use_localstorage_for_settings',
+            'volume_force_overlay',
+            // 'items_favoriting',
+            'header_layouttoggle',
+            // 'chart_crosshair_menu',
+            // 'open_account_manager',
+            // 'study_dialog_search_control',
+            'symbol_search_hot_key',
+            'control_bar',
+            // 'header_settings',
+            'save_chart_properties_to_local_storage',
+            'display_market_status',
+          ],
+          enabled_features: [
+            // 'study_templates',
+            // 'timeframes_toolbar',
+            'dont_show_boolean_study_arguments',
+            'hide_last_na_study_output',
+            // 'same_data_requery',
+            // 'side_toolbar_in_fullscreen_mode',
+            'hide_left_toolbar_by_default',
+            'seconds_resolution',
+          ],
           // charts_storage_url: 'http://saveload.tradingview.com',
-          charts_storage_api_version: '1.2',
+          charts_storage_api_version: '1.1',
           client_id: 'tradingview.com',
           user_id: 'public_user_id',
           loading_screen: {
@@ -58,11 +75,13 @@ export default {
           },
           toolbar_bg: '#181b2a',
           overrides: {
+            volumePaneSize: "small",
             'paneProperties.background': '#181b2a',
             'paneProperties.vertGridProperties.color': '#1f2943',
             'paneProperties.horzGridProperties.color': '#1f2943',
             'symbolWatermarkProperties.transparency': 90,
             'scalesProperties.textColor': '#61688a',
+            // 实心k
             'mainSeriesProperties.candleStyle.upColor': '#589065',
             'mainSeriesProperties.candleStyle.downColor': '#ae4e54',
             'mainSeriesProperties.candleStyle.drawWick': true,
@@ -72,6 +91,7 @@ export default {
             'mainSeriesProperties.candleStyle.borderDownColor': '#ae4e54',
             'mainSeriesProperties.candleStyle.wickUpColor': '#589065',
             'mainSeriesProperties.candleStyle.wickDownColor': '#ae4e54',
+            // 空心k
             'mainSeriesProperties.hollowCandleStyle.upColor': '#589065',
             'mainSeriesProperties.hollowCandleStyle.downColor': '#ae4e54',
             'mainSeriesProperties.hollowCandleStyle.drawWick': true,
@@ -81,9 +101,28 @@ export default {
             'mainSeriesProperties.hollowCandleStyle.borderDownColor': '#ae4e54',
             'mainSeriesProperties.hollowCandleStyle.wickUpColor': '#589065',
             'mainSeriesProperties.hollowCandleStyle.wickDownColor': '#ae4e54',
-            'scalesProperties.lineColor': '#61688a'
+            'scalesProperties.lineColor': '#61688a',
+
+            'paneProperties.legendProperties.showSeriesTitle': false,
+          },
+          studies_overrides: {
           },
           custom_css_url: './night.css'
+        })
+        widget.onChartReady(() => {
+          let chart = widget.activeChart()
+          chart.createStudy('Moving Average', false, false, [5], null, {
+            'Plot.color': '#965fc4'
+          })
+          chart.createStudy('Moving Average', false, false, [10], null, {
+            'Plot.color': '#84aad5'
+          })
+          chart.createStudy('Moving Average', false, false, [30], null, {
+            'Plot.color': '#55b263'
+          })
+          chart.createStudy('Moving Average', false, false, [60], null, {
+            'Plot.color': '#b7248a'
+          })
         })
       })
     }
@@ -93,3 +132,11 @@ export default {
   }
 }
 </script>
+
+<style>
+  #trade-view-root {
+    margin: 100px auto;
+    height: 500px;
+    width: 1000px;
+  }
+</style>
