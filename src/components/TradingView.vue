@@ -103,7 +103,7 @@ export default {
             'mainSeriesProperties.hollowCandleStyle.wickDownColor': '#ae4e54',
             'scalesProperties.lineColor': '#61688a',
 
-            'paneProperties.legendProperties.showSeriesTitle': false,
+            'paneProperties.legendProperties.showSeriesTitle': false, // 取消symbolInfo
           },
           studies_overrides: {
           },
