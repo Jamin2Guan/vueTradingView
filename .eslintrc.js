@@ -28,6 +28,7 @@ module.exports = {
     'quotes': 'off',
     'comma-dangle': 'off',
     'semi': 'off',
-    'camelcase': 'off'
+    'camelcase': 'off',
+    'standard/no-callback-literal': 'off'
   }
 }

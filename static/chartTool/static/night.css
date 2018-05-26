@@ -152,6 +152,8 @@
         fill: #181B2A; }
 
 .favored-list-container span.disabled,
+.favored-list-container span.disabled:hover,
+.favored-list .item.disabled:hover,
 .feature-no-touch .favored-list-container span.disabled:active,
 .feature-touch .favored-list-container span.disabled:active,
 .charts-popup-list .item span{
@@ -162,7 +164,3 @@
 .favored-list-container span.selected {
   background: transparent;
 }
-.pane-legend-line.apply-overflow-tooltip.main,pane-legend-icon-container {
-  display: none;
-}
-

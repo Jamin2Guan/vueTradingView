@@ -6,7 +6,8 @@
 </template>
 
 <script>
-import Datafeeds from '../assets/js/datafeeds'
+// import Datafeeds from '../assets/js/datafeeds'
+import Datafeeds from '../assets/js/myDatafeeds'
 
 console.log(Datafeeds)
 export default {
@@ -20,7 +21,7 @@ export default {
           height: '100%',
           time_frames: [],
           fullscreen: false,
-          symbol: 'AAPL',
+          symbol: 'BTC_USDT',
           interval: 'D',
           container_id: 'trade-view-root',
           datafeed: new Datafeeds('https://demo_feed.tradingview.com'),
@@ -43,7 +44,6 @@ export default {
             // 'show_interval_dialog_on_key_press',
             // 'snapshot_trading_drawings',
             'symbol_info',
-            // 'use_localstorage_for_settings',
             'volume_force_overlay',
             // 'items_favoriting',
             'header_layouttoggle',
@@ -57,14 +57,14 @@ export default {
             'display_market_status',
           ],
           enabled_features: [
+            'use_localstorage_for_settings',
             // 'study_templates',
             // 'timeframes_toolbar',
             'dont_show_boolean_study_arguments',
             'hide_last_na_study_output',
             // 'same_data_requery',
             // 'side_toolbar_in_fullscreen_mode',
-            'hide_left_toolbar_by_default',
-            'seconds_resolution',
+            'hide_left_toolbar_by_default'
           ],
           // charts_storage_url: 'http://saveload.tradingview.com',
           charts_storage_api_version: '1.1',
@@ -112,16 +112,20 @@ export default {
         widget.onChartReady(() => {
           let chart = widget.activeChart()
           chart.createStudy('Moving Average', false, false, [5], null, {
-            'Plot.color': '#965fc4'
+            'Plot.color': '#965fc4',
+            'Plot.linewidth': 1.5
           })
           chart.createStudy('Moving Average', false, false, [10], null, {
-            'Plot.color': '#84aad5'
+            'Plot.color': '#84aad5',
+            'Plot.linewidth': 1.5
           })
           chart.createStudy('Moving Average', false, false, [30], null, {
-            'Plot.color': '#55b263'
+            'Plot.color': '#55b263',
+            'Plot.linewidth': 1.5
           })
           chart.createStudy('Moving Average', false, false, [60], null, {
-            'Plot.color': '#b7248a'
+            'Plot.color': '#b7248a',
+            'Plot.linewidth': 1.5
           })
         })
       })

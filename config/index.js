@@ -12,18 +12,26 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/huobi': {
-        target: 'https://www.huobipro.com',
+        target: 'https://www.huobipro.com/',
         changeOrigin: true,
-        ws: true,
         secure: false,
         pathRewrite: {
           '^/huobi': ''
         }
-      }
+      },
+      '/tv': {
+        target: 'https://demo_feed.tradingview.com/',
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: {
+          '^/tv': ''
+        }
+      },
+
     },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '0.0.0.0', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
