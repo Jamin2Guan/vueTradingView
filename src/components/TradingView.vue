@@ -53,7 +53,7 @@ export default {
             'symbol_search_hot_key',
             'control_bar',
             // 'header_settings',
-            'save_chart_properties_to_local_storage',
+            // 'save_chart_properties_to_local_storage',
             'display_market_status',
           ],
           enabled_features: [

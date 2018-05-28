@@ -45,22 +45,6 @@ export default class {
 
   async getBars (symbolInfo, resolution, from, to, onHistoryCallback, onErrorCallback, firstDataRequest) {
     console.log('getBars', ...arguments)
-    // await this.dataReady
-    // console.log(this.klinePage)
-    // let res = this.klineData.data.slice((this.klinePage - 1) * 200, this.klinePage++ * 200)
-    // let result = res.map(obj => ({
-    //   time: obj.id * 1000,
-    //   close: obj.close,
-    //   open: obj.open,
-    //   high: obj.high,
-    //   low: obj.low,
-    //   volume: Math.random() * 9999999
-    // }))
-    // console.log(result)
-    // onHistoryCallback(result, {
-    //   noData: !result.length,
-    //   nextTime: null
-    // })
     let {data: res} = await axios.get(`/tv/history?symbol=AAPL&resolution=${resolution}&from=${from}&to=${to}`)
     if (res.s !== 'ok' && res.s !== 'no_data') return
     //
