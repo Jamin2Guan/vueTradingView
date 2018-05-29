@@ -71,7 +71,7 @@ export default {
           client_id: 'tradingview.com',
           user_id: 'public_user_id',
           loading_screen: {
-            backgroundColor: '#262626'
+            backgroundColor: '#181b2a'
           },
           toolbar_bg: '#181b2a',
           overrides: {
@@ -131,7 +131,7 @@ export default {
       })
     }
   },
-  mounted () {
+  created () {
     this.tradingViewInit()
   }
 }

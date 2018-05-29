@@ -1,6 +1,5 @@
 <template>
   <div class="comp-footer">
-    footer
   </div>
 </template>
 
