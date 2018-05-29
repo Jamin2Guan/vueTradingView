@@ -1,17 +1,17 @@
 <template>
-  <div class="text-center pv-50 comp-entrance">
+  <div class="text-center pv-50 comp-entry">
     <h1 class="pv-20 fw-nm">马上交易</h1>
     <p class="text-center font-18 opacity-8">在全球领先的数字资产交易平台</p>
     <div class="mt-30 pv-30">
-      <a class="entrance-login">登录</a>
-      <a class="entrance-register">注册</a>
+      <router-link :to="{name: 'Login'}" class="entry-login">登录</router-link>
+      <router-link :to="{name: 'Register'}" class="entry-register">注册</router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "entrance-comp",
+  name: "entry-comp",
   data () {
     return {}
   },
@@ -24,10 +24,10 @@ export default {
 </script>
 
 <style scoped>
-  .comp-entrance{
+  .comp-entry{
     background-color: #202437;
   }
-  .entrance-login, .entrance-register {
+  .entry-login, .entry-register {
     display: inline-block;
     border: 1px solid;
     border-radius: 5px;
@@ -37,19 +37,19 @@ export default {
     cursor: pointer;
     transition: .3s;
   }
-  .entrance-login{
+  .entry-login{
     border-color: #c7cce6;
     margin-right: 40px;
   }
-  .entrance-register {
+  .entry-register {
     border-color: #7a98f7;
     background-color: #7a98f7;
     color: #ffffff;
   }
-  .entrance-login:hover {
+  .entry-login:hover {
     background-color: rgba(0,0,0,.3);
   }
-  .entrance-register:hover {
+  .entry-register:hover {
     background-color: rgba(122,152,247,.7);
   }
 </style>

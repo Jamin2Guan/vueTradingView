@@ -4,7 +4,7 @@
       <el-carousel-item v-for="(banner, idx) in banners" :key="idx">
         <div class="banner-wrap pointer"
              @click="bannerClick(banner)"
-             :style='{background: `url(${banner.bannerUrl}) no-repeat center center`}'></div>
+             :style='{background: `url(${banner.bannerUrl}) center center no-repeat`}'></div>
       </el-carousel-item>
     </el-carousel>
   </div>

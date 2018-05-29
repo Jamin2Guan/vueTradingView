@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div id="page-home">
     <banners-comp></banners-comp>
     <line-news-comp></line-news-comp>
     <div class="ph-60 pv-30">
       <coin-list-comp></coin-list-comp>
     </div>
     <exchange-desc-comp></exchange-desc-comp>
-    <entrance-comp></entrance-comp>
+    <entry-comp></entry-comp>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ import BannersComp from '@c/Home/BannersComp'
 import LineNewsComp from '@c/Home/LineNewsComp'
 import CoinListComp from '@c/Home/CoinListComp'
 import ExchangeDescComp from '@c/Home/ExchangeDescComp'
-import EntranceComp from '@c/Home/EntranceComp'
+import EntryComp from '@c/Home/EntryComp'
 export default {
   name: "home",
   components: {
@@ -23,11 +23,13 @@ export default {
     LineNewsComp,
     CoinListComp,
     ExchangeDescComp,
-    EntranceComp
+    EntryComp
   }
 }
 </script>
 
 <style scoped>
-
+#page-home{
+  margin-top: -56px;
+}
 </style>

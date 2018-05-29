@@ -1,10 +1,10 @@
 /*reset*/
 html {
+}
+body {
   background: #262a42;
   color: #c7cce6;
   font: 14px/1.4 PingFang SC,Hiragino Sans GB,Heiti SC,Microsoft YaHei,WenQuanYi Micro Hei,serif;
-}
-body {
   min-width: 1080px;
   max-width: 1920px;
   margin: 0 auto;
@@ -40,13 +40,14 @@ h1,h2,h3,h4,h5,h6{
 ::-webkit-scrollbar {
   width: 4px;
   height: 0;
-  background-color: #f5f5f5;
+  background-color: #33404f;
 }
 ::-webkit-scrollbar-track {
-  background-color: #f5f5f5;
+  background-color: #ccc;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #cccccc;
+  background-color: #8994a3;
+  border-radius: 2px;
 }
 
 /*global*/
@@ -848,12 +849,13 @@ h1,h2,h3,h4,h5,h6{
   /*border-color: #750dec;*/
 /*}*/
 .cont-box {
+  background: #181b2a;
+  border-radius: 3px;
+  margin-bottom: 10px;
   box-sizing: border-box;
-  background: #ffffff;
-  box-shadow:0 5px 10px rgba(95,98,154,0.1);
-  border-radius: 2px;
-  margin-bottom: 15px;
-  padding: 20px 30px;
+}
+.cont-title {
+  padding: 16px 0;
 }
 .hover-shadow:hover {
   box-shadow:0 5px 10px rgba(95,98,154,0.1);
@@ -889,40 +891,8 @@ h1,h2,h3,h4,h5,h6{
   color: #7a98f7;
 }
 
-/*element reset*/
-/*.el-tabs--card>.el-tabs__header,*/
-.el-tabs--card>.el-tabs__header .el-tabs__nav,
-.el-tabs--card>.el-tabs__header .el-tabs__item
-{
-  border-color: #4e5b85;
-}
-.el-tabs--card>.el-tabs__header .el-tabs__item.is-active
-{
-  border-bottom-color: #262a42;
-}
-
-.el-tabs--card>.el-tabs__header
-{
-  border-bottom: none;
-}
-
-.el-tabs__header.is-top {
-  margin: 0;
-}
-
-.el-table, .el-table__expanded-cell,
-.el-table--border::after, .el-table--group::after, .el-table::before,
-.el-table th{
-  background-color: #262a42;
-  color: #7a7d90;
-}
-.el-table--enable-row-hover .el-table__body tr:hover>td {
-  background-color: #1b1e2e;
-}
-.el-table tr{
-  background: #202437;
-  color: #c7cce6;
-}
-.el-table td, .el-table th.is-leaf {
-  border-bottom-color: #272b3f;
+.entry-page{
+  min-height: 700px;
+  padding-top: 100px;
+  background: url("/static/img/bg_login.png") center bottom repeat-x;
 }

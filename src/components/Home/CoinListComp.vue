@@ -14,15 +14,19 @@
           </div>
           <div class="border">
             <el-table :data="Object.values(list)"
-                      row-class-name="pointer"
+                      row-class-name="pointer font-14"
                       height="500px"
                       size="small">
-              <el-table-column label="交易对" prop="targetCoin"></el-table-column>
-              <el-table-column label="最新价" prop="targetCoin"></el-table-column>
-              <el-table-column label="涨幅" prop="targetCoin"></el-table-column>
-              <el-table-column label="最高价" prop="targetCoin"></el-table-column>
-              <el-table-column label="最低价" prop="targetCoin"></el-table-column>
-              <el-table-column label="24H量" prop="targetCoin"></el-table-column>
+              <el-table-column label="交易对" prop="targetCoin">
+                <template slot-scope="scope">
+                  <span>{{scope.row.targetCoin}} <span class="color-weak">/ {{baseCoin}}</span></span>
+                </template>
+              </el-table-column>
+              <el-table-column label="最新价" prop="close"></el-table-column>
+              <el-table-column label="涨幅" prop="change"></el-table-column>
+              <el-table-column label="最高价" prop="high"></el-table-column>
+              <el-table-column label="最低价" prop="low"></el-table-column>
+              <el-table-column label="24H量" prop="vol"></el-table-column>
             </el-table>
           </div>
         </el-tab-pane>
@@ -42,7 +46,7 @@ export default {
           {
             targetCoin: 'BTC',
             close: 0.128845,
-            range: -1.69,
+            change: -1.69,
             high: 7431.12,
             low: 7176.29,
             vol: 15108
@@ -50,7 +54,7 @@ export default {
           {
             targetCoin: 'BCH',
             close: 0.128845,
-            range: -1.69,
+            change: -1.69,
             high: 7431.12,
             low: 7176.29,
             vol: 15108
@@ -58,7 +62,7 @@ export default {
           {
             targetCoin: 'ETH',
             close: 0.128845,
-            range: -1.69,
+            change: -1.69,
             high: 7431.12,
             low: 7176.29,
             vol: 15108
@@ -66,7 +70,7 @@ export default {
           {
             targetCoin: 'ETC',
             close: 0.128845,
-            range: -1.69,
+            change: -1.69,
             high: 7431.12,
             low: 7176.29,
             vol: 15108
@@ -74,7 +78,7 @@ export default {
           {
             targetCoin: 'LTC',
             close: 0.128845,
-            range: -1.69,
+            change: -1.69,
             high: 7431.12,
             low: 7176.29,
             vol: 15108

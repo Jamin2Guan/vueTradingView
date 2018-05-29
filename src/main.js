@@ -1,7 +1,10 @@
 import 'element-ui/lib/theme-chalk/index.css'
+import '../src/assets/element-ui-overide.css'
 import '../src/assets/global.css'
 
 import Vue from 'vue'
+import './axios'
+import store from './store'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
@@ -14,6 +17,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

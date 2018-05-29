@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <navbar-comp></navbar-comp>
-    <router-view/>
+    <navbar-comp :class="navbarClass"></navbar-comp>
+    <div id="page-main">
+      <router-view/>
+    </div>
     <footer-comp></footer-comp>
   </div>
 </template>
@@ -20,6 +22,16 @@ export default {
   data () {
     return {
       WS_URL: 'wss://api.huobi.pro/ws'
+    }
+  },
+  computed: {
+    navbarClass () {
+      switch (this.$route.name) {
+        case 'Home':
+          return 'home-navbar'
+        case 'Pairs':
+          return 'pairs-navbar'
+      }
     }
   },
   methods: {
@@ -95,4 +107,18 @@ export default {
 <style>
 #app {
 }
+  #page-main{
+    /*margin-top: 56px;*/
+  }
+  .home-navbar{
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .1);
+  }
+  .pairs-navbar{
+    background-color: #181b2a;
+  }
 </style>
