@@ -29,7 +29,7 @@ export default {
         time_frames: [],
         fullscreen: false,
         symbol: 'BTC_USDT',
-        interval: 'D',
+        interval: localStorage.getItem('tradingview.interval') || 'D',
         container_id: 'trade-view-root',
         datafeed: new Datafeeds('https://demo_feed.tradingview.com'),
         library_path: '/static/chartTool/',
@@ -62,6 +62,7 @@ export default {
           // 'header_settings',
           // 'save_chart_properties_to_local_storage',
           'display_market_status',
+          'timeframes_toolbar'
         ],
         enabled_features: [
           'use_localstorage_for_settings',
@@ -120,19 +121,22 @@ export default {
         let chart = widget.activeChart()
         chart.createStudy('Moving Average', false, false, [5], null, {
           'Plot.color': '#965fc4',
-          'Plot.linewidth': 1.5
+          'Plot.linewidth': 1
         })
         chart.createStudy('Moving Average', false, false, [10], null, {
           'Plot.color': '#84aad5',
-          'Plot.linewidth': 1.5
+          'Plot.linewidth': 1
         })
         chart.createStudy('Moving Average', false, false, [30], null, {
           'Plot.color': '#55b263',
-          'Plot.linewidth': 1.5
+          'Plot.linewidth': 1
         })
         chart.createStudy('Moving Average', false, false, [60], null, {
           'Plot.color': '#b7248a',
-          'Plot.linewidth': 1.5
+          'Plot.linewidth': 1
+        })
+        chart.onIntervalChanged().subscribe(null, (interval, obj) => {
+          localStorage.setItem('tradingview.interval', interval)
         })
       })
     }

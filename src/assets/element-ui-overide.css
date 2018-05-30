@@ -19,12 +19,17 @@
   margin: 0;
 }
 
+.el-table, .el-table th {
+  text-align: center;
+}
 .el-table, .el-table__expanded-cell,
 .el-table--border::after, .el-table--group::after, .el-table::before,
 .el-table th{
   background-color: #262a42;
   color: #7a7d90;
 }
+
+.el-table__body-wrapper,
 .el-table--enable-row-hover .el-table__body tr:hover>td {
   background-color: #1b1e2e;
 }

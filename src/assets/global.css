@@ -38,15 +38,15 @@ h1,h2,h3,h4,h5,h6{
 
 /*scroll-bar*/
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
   height: 0;
   background-color: #33404f;
 }
 ::-webkit-scrollbar-track {
-  background-color: #ccc;
+  background-color: #a3a3a3;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #8994a3;
+  background-color: #4f5a69;
   border-radius: 2px;
 }
 
@@ -829,9 +829,7 @@ h1,h2,h3,h4,h5,h6{
 .prefix-input .el-input__inner {
   padding-left: 55px;
 }
-.el-table, .el-table th {
-  text-align: center;
-}
+
 .prefix-content{
   width: 24px;
   height: 24px;
@@ -855,7 +853,9 @@ h1,h2,h3,h4,h5,h6{
   box-sizing: border-box;
 }
 .cont-title {
-  padding: 16px 0;
+  padding: 15px;
+  background-color: #1b1e2e;
+  box-shadow: 0 3px 6px rgba(0,0,0,.1);
 }
 .hover-shadow:hover {
   box-shadow:0 5px 10px rgba(95,98,154,0.1);
@@ -884,10 +884,18 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .link {
+  margin-right: 20px;
+  display: inline-block;
   cursor: pointer;
   transition: .3s;
+  padding-bottom: 10px;
+  border-bottom: 1px solid transparent;
 }
 .link:hover {
+  color: #7a98f7;
+}
+.link.is-active {
+  border-bottom-color: currentColor;
   color: #7a98f7;
 }
 

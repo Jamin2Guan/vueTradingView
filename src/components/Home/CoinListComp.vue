@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div>
+  <div class="comp-coin-list">
       <el-tabs v-model="activeBaseCoin" type="card">
         <el-tab-pane v-for="(list, baseCoin) in pairs"
                      :name="baseCoin"
@@ -15,7 +14,6 @@
           <div class="border">
             <el-table :data="Object.values(list)"
                       row-class-name="pointer font-14"
-                      height="500px"
                       size="small">
               <el-table-column label="交易对" prop="targetCoin">
                 <template slot-scope="scope">
@@ -31,8 +29,6 @@
           </div>
         </el-tab-pane>
       </el-tabs>
-    </div>
-    <div></div>
   </div>
 </template>
 
@@ -82,7 +78,88 @@ export default {
             high: 7431.12,
             low: 7176.29,
             vol: 15108
-          }
+          },
+          {
+            targetCoin: 'BTC',
+            close: 0.128845,
+            change: -1.69,
+            high: 7431.12,
+            low: 7176.29,
+            vol: 15108
+          },
+          {
+            targetCoin: 'BCH',
+            close: 0.128845,
+            change: -1.69,
+            high: 7431.12,
+            low: 7176.29,
+            vol: 15108
+          },
+          {
+            targetCoin: 'ETH',
+            close: 0.128845,
+            change: -1.69,
+            high: 7431.12,
+            low: 7176.29,
+            vol: 15108
+          },
+          {
+            targetCoin: 'ETC',
+            close: 0.128845,
+            change: -1.69,
+            high: 7431.12,
+            low: 7176.29,
+            vol: 15108
+          },
+          {
+            targetCoin: 'LTC',
+            close: 0.128845,
+            change: -1.69,
+            high: 7431.12,
+            low: 7176.29,
+            vol: 15108
+          },
+          {
+            targetCoin: 'BTC',
+            close: 0.128845,
+            change: -1.69,
+            high: 7431.12,
+            low: 7176.29,
+            vol: 15108
+          },
+          {
+            targetCoin: 'BCH',
+            close: 0.128845,
+            change: -1.69,
+            high: 7431.12,
+            low: 7176.29,
+            vol: 15108
+          },
+          {
+            targetCoin: 'ETH',
+            close: 0.128845,
+            change: -1.69,
+            high: 7431.12,
+            low: 7176.29,
+            vol: 15108
+          },
+          {
+            targetCoin: 'ETC',
+            close: 0.128845,
+            change: -1.69,
+            high: 7431.12,
+            low: 7176.29,
+            vol: 15108
+          },
+          {
+            targetCoin: 'LTC',
+            close: 0.128845,
+            change: -1.69,
+            high: 7431.12,
+            low: 7176.29,
+            vol: 15108
+          },
+
         ],
         BTC: [],
         ETH: []
@@ -104,5 +181,11 @@ export default {
   }
   .border {
     border: 1px solid #4e5b85;
+  }
+</style>
+<style>
+  .comp-coin-list .el-table__body-wrapper {
+    overflow-y: auto;
+    max-height: 500px;
   }
 </style>

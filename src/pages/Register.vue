@@ -5,7 +5,7 @@
         <div class="fl w45">
           <h1 class="fw-nm">欢迎注册</h1>
           <div class="mv-30">
-            <span class="link mr-30"
+            <span class="link"
                   @click="registerType='phone'"
                   :class="{'is-active': registerType==='phone'}">手机注册</span>
             <span class="link"
@@ -104,14 +104,9 @@ export default {
 </script>
 
 <style scoped>
-  .link {
-    display: inline-block;
-    padding-bottom: 10px;
-    border-bottom: 2px solid transparent;
-  }
-  .link.is-active {
-    border-bottom-color: #7a98f7;
-    color: #7a98f7;
+  .link{
+    border-bottom-width: 2px;
+    margin-right: 30px;
   }
   .tip-text{
     margin-top: 160px;

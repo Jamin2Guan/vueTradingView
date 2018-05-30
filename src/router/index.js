@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import TradingView from '@c/TradingView'
 import Home from '@p/Home'
 import Register from '@p/Register'
 import Login from '@p/Login'
@@ -14,11 +13,6 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
-    },
-    {
-      path: '/TradingView',
-      name: 'TradingView',
-      component: TradingView
     },
     {
       path: '/Register',

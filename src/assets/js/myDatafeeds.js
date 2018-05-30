@@ -29,16 +29,17 @@ export default class {
       ticker: symbolName,
       type: 'bitcoin',
       "timezone": 'Asia/Hong_Kong',
-      "minmov": 0.00000001, // 最小波动
-      "pricescale": 100, // 价格刻度
+      "minmov": 0.01, // 最小波动
+      "pricescale": 0.01, // 价格刻度
       // "minmov2":0,
       // "pointvalue":1,
       "session": "24x7",
       "has_intraday": true,
       // "has_no_volume":false,
       // "description":"Apple Inc.",
-      // "supported_resolutions": ['5', '15', '30', '60', 'D', 'W', 'M'],
-      "intraday_multipliers": ['5', '15', '30', '60']
+      "supported_resolutions": ['5', '15', '30', '60', 'D', 'W', 'M'],
+      "intraday_multipliers": ['5', '15', '30', '60'],
+      'has_empty_bars': true
     })
     onSymbolResolvedCallback(res)
   }
