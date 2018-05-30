@@ -904,3 +904,10 @@ h1,h2,h3,h4,h5,h6{
   padding-top: 100px;
   background: url("/static/img/bg_login.png") center bottom repeat-x;
 }
+
+.color-sell{
+  color: #ae4e54;
+}
+.color-buy{
+  color: #589065;
+}

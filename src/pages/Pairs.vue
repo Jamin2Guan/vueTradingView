@@ -8,11 +8,19 @@
       <div class="fl w75">
         <kline-comp></kline-comp>
         <div class="clear-fix">
-          <div class="w70 fl pr-10">
+          <div class="w70 fl pr-10 border-box">
             <operation-comp></operation-comp>
           </div>
           <div class="w30 fr">
             <market-depth-comp></market-depth-comp>
+          </div>
+        </div>
+        <div class="clear-fix">
+          <div class="fl w60 pr-10 border-box">
+            <depth-char-comp></depth-char-comp>
+          </div>
+          <div class="fr w40">
+            <trades-list-comp></trades-list-comp>
           </div>
         </div>
         <coin-info-comp></coin-info-comp>
