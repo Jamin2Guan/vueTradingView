@@ -93,3 +93,14 @@
 .el-popper[x-placement^=bottom] .popper__arrow {
   border-bottom-color: #4e5b85;
 }
+.el-slider__button{
+  width: 10px;
+  height: 10px;
+}
+.el-slider__runway{
+  background-color: #262a42;
+}
+.el-tooltip__popper.is-dark{
+  background-color: transparent;
+  padding: 0 0 5px;
+}

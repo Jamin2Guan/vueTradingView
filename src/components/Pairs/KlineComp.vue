@@ -92,25 +92,11 @@ export default {
           // 实心k
           'mainSeriesProperties.candleStyle.upColor': '#589065',
           'mainSeriesProperties.candleStyle.downColor': '#ae4e54',
-          'mainSeriesProperties.candleStyle.drawWick': true,
-          'mainSeriesProperties.candleStyle.drawBorder': true,
-          'mainSeriesProperties.candleStyle.borderColor': '#C400CB',
-          'mainSeriesProperties.candleStyle.borderUpColor': '#589065',
-          'mainSeriesProperties.candleStyle.borderDownColor': '#ae4e54',
-          'mainSeriesProperties.candleStyle.wickUpColor': '#589065',
-          'mainSeriesProperties.candleStyle.wickDownColor': '#ae4e54',
           // 空心k
-          'mainSeriesProperties.hollowCandleStyle.upColor': '#589065',
-          'mainSeriesProperties.hollowCandleStyle.downColor': '#ae4e54',
-          'mainSeriesProperties.hollowCandleStyle.drawWick': true,
-          'mainSeriesProperties.hollowCandleStyle.drawBorder': true,
-          'mainSeriesProperties.hollowCandleStyle.borderColor': '#C400CB',
           'mainSeriesProperties.hollowCandleStyle.borderUpColor': '#589065',
           'mainSeriesProperties.hollowCandleStyle.borderDownColor': '#ae4e54',
-          'mainSeriesProperties.hollowCandleStyle.wickUpColor': '#589065',
-          'mainSeriesProperties.hollowCandleStyle.wickDownColor': '#ae4e54',
+          //
           'scalesProperties.lineColor': '#61688a',
-
           'paneProperties.legendProperties.showSeriesTitle': false, // 取消symbolInfo
         },
         studies_overrides: {

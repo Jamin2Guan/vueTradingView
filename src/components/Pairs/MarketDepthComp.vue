@@ -1,7 +1,7 @@
 <template>
   <div class="cont-box">
     <div class="cont-title">最新价 7471.47 USDT</div>
-    <div class="pv-10 ph-15">
+    <div class="pv-10 ph-15 block-height">
       <table class="market-depth-table"
              cellpadding="0"
              cellspacing="0">

@@ -39,7 +39,7 @@ h1,h2,h3,h4,h5,h6{
 /*scroll-bar*/
 ::-webkit-scrollbar {
   width: 5px;
-  height: 0;
+  height: 8px;
   background-color: #33404f;
 }
 ::-webkit-scrollbar-track {
@@ -48,6 +48,9 @@ h1,h2,h3,h4,h5,h6{
 ::-webkit-scrollbar-thumb {
   background-color: #4f5a69;
   border-radius: 2px;
+}
+::-webkit-scrollbar-corner {
+  background-color: #cccccc;
 }
 
 /*global*/
@@ -547,10 +550,10 @@ h1,h2,h3,h4,h5,h6{
   padding-right: 0;
 }
 .pt-0{
-  padding-top: 0;
+  padding-top: 0 !important;
 }
 .pb-0{
-  padding-bottom: 0;
+  padding-bottom: 0 !important;
 }
 .pl-5{
   padding-left: 5px;
@@ -911,3 +914,4 @@ h1,h2,h3,h4,h5,h6{
 .color-buy{
   color: #589065;
 }
+

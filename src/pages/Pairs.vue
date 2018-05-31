@@ -62,6 +62,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+  #page-pairs .block-height{
+    height: 380px;
+    box-sizing: border-box;
+  }
 </style>
