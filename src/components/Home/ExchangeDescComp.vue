@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="desc-part clear-fix">
+    <div class="desc-part clear-fix mt-100">
       <div class="w50 fl">
         <div class="desc-block">
           <h1 class="fw-nm">全球化的数字资产配置及交易服务</h1>
@@ -15,7 +15,7 @@
         <img src="/static/img/Home/home-feature_1.png" alt="" class="w50">
       </div>
     </div>
-    <div class="desc-part clear-fix">
+    <div class="desc-part clear-fix mt-100">
       <div class="w50 fl text-center">
         <img src="/static/img/Home/home-feature_2.png" alt="" class="w50">
       </div>
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="desc-part clear-fix">
+    <div class="desc-part clear-fix mt-100">
       <div class="w50 fl">
         <div class="desc-block">
           <h1 class="fw-nm">4年的数字资产安全风控经验</h1>
@@ -42,12 +42,12 @@
           </p>
         </div>
       </div>
-      <div class="w50 fr text-center">
+      <div class="w50 fr text-center mt-100">
         <img src="/static/img/Home/home-feature_3.png" alt="" class="w50">
       </div>
     </div>
 
-    <div class="service-points">
+    <div class="service-points mt-100">
       <h1 class="fw-nm text-center pv-50">
         香港
         <span class="color-666">／</span>
@@ -79,6 +79,9 @@ export default {
 </script>
 
 <style scoped>
+  .mt-100{
+    margin-top: 100px;
+  }
 .desc-block {
   margin: 90px auto;
   width: 72%;

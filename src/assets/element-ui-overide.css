@@ -93,14 +93,27 @@
 .el-popper[x-placement^=bottom] .popper__arrow {
   border-bottom-color: #4e5b85;
 }
+
 .el-slider__button{
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
+  transform: translate(0, -1px);
+  border-color: #fff;
 }
-.el-slider__runway{
+
+.el-slider__runway
+{
+  height: 4px;
   background-color: #262a42;
 }
 .el-tooltip__popper.is-dark{
   background-color: transparent;
   padding: 0 0 5px;
+}
+.el-slider__bar{
+  background-color: #4e5b85;
+  height: 4px;
+}
+.el-slider__button{
+  background-color: #4e5b85;
 }

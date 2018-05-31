@@ -856,6 +856,7 @@ h1,h2,h3,h4,h5,h6{
   box-sizing: border-box;
 }
 .cont-title {
+  border-radius: 3px;
   padding: 15px;
   background-color: #1b1e2e;
   box-shadow: 0 3px 6px rgba(0,0,0,.1);
@@ -914,4 +915,9 @@ h1,h2,h3,h4,h5,h6{
 .color-buy{
   color: #589065;
 }
-
+.bg-sell{
+  background-color: #ae4e54;
+}
+.bg-buy{
+  background-color: #589065;
+}
