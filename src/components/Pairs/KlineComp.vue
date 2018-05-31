@@ -60,12 +60,12 @@ export default {
           'symbol_search_hot_key',
           'control_bar',
           // 'header_settings',
-          // 'save_chart_properties_to_local_storage',
+          'save_chart_properties_to_local_storage',
           'display_market_status',
           'timeframes_toolbar'
         ],
         enabled_features: [
-          'use_localstorage_for_settings',
+          // 'use_localstorage_for_settings',
           // 'study_templates',
           // 'timeframes_toolbar',
           'dont_show_boolean_study_arguments',
