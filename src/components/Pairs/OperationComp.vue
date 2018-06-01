@@ -2,7 +2,7 @@
   <div class="cont-box">
     <div class="cont-title pb-0">
       <span class="link is-active">限价交易</span>
-      <span class="link">限价交易</span>
+      <span class="link">市价交易</span>
     </div>
     <div class="clear-fix ph-15 pv-25 block-height">
       <div class="fl w50 pr-15 border-box">

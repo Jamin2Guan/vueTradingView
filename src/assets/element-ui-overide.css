@@ -73,6 +73,9 @@
   background-color: #1e2235;
   color: #61688a;
 }
+.el-select-dropdown__wrap{
+  overflow-x: hidden;
+}
 .el-select-dropdown__item{
   border-bottom: 1px solid #272b3f;
 }

@@ -837,12 +837,14 @@ export default {
         grid: {
           top: 40,
           bottom: 55,
-          left: 40,
-          right: 40
+          left: 50,
+          right: 50
         },
         tooltip: {
           show: true,
           trigger: 'axis',
+          backgroundColor: '#262a42',
+          padding: [10, 15],
           axisPointer: {
             type: 'line',
             lineStyle: {
@@ -852,8 +854,9 @@ export default {
           },
           formatter: params => {
             let val = params[0].value
-            return `委托价：<span class="color-normal">${val[0].toFixed(4)}</span> ${this.baseCoin}<br/>
-                    累积量：<span class="color-normal">${val[1].toFixed(4)}</span> ${this.targetCoin}</span>`
+            let color = params[0].seriesName === 'buy' ? 'color-buy' : 'color-sell'
+            return `委托价<span class="${color} ml-15">${val[0].toFixed(4)}</span> ${this.baseCoin}<br/>
+                    累积量<span class="${color} ml-15">${val[1].toFixed(4)}</span> ${this.targetCoin}</span>`
           },
           textStyle: {
             color: '#61688a'
@@ -869,6 +872,9 @@ export default {
           },
           nameLocation: 'center',
           type: 'category',
+          axisLabel: {
+            rotate: 15
+          }
         },
         yAxis: {
           name: `累积量（${this.targetCoin}）`,
@@ -881,6 +887,7 @@ export default {
         },
         series: [
           {
+            name: 'buy',
             type: 'line',
             showSymbol: false,
             emphasis: {
@@ -910,7 +917,18 @@ export default {
             },
             data: this.depthData.buyBills.reverse()
           },
+          // {
+          //   type: 'line',
+          //   data: [
+          //     [0, 0],
+          //     [0, 1]
+          //   ],
+          //   tooltip: {
+          //     show: false
+          //   }
+          // },
           {
+            name: 'sell',
             type: 'line',
             showSymbol: false,
             emphasis: {
