@@ -6,7 +6,7 @@
           <router-link tag="li"
                        :to="{name: 'Home'}"
                        class="nav-item link">
-            <img src="/static/img/huobilogo.svg" alt="">
+            <img src="/static/img/logo-db.png" alt="" height="40">
           </router-link>
           <li class="nav-item link">
             法币交易
