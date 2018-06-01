@@ -1,6 +1,6 @@
 <template>
   <div id="page-register" class="entry-page">
-    <div class="container">
+    <div class="mh-10p">
       <div class="clear-fix">
         <div class="fl w45">
           <h1 class="fw-nm">欢迎注册</h1>
@@ -51,7 +51,7 @@
                 </el-checkbox>
                 <el-button type="text">《用户协议》</el-button>
               </el-form-item>
-              <el-form-item class="mt-30">
+              <el-form-item class="mt-25">
                 <el-button type="primary" class="w35">注册</el-button>
               </el-form-item>
             </el-form>

@@ -1,6 +1,6 @@
 <template>
   <div class="entry-page">
-    <div class="container">
+    <div class="mh-10p">
       <div class="clear-fix">
         <div class="fl w45">
           <h1 class="fw-nm">登录</h1>
@@ -12,7 +12,7 @@
               <el-form-item label="密码">
                 <el-input></el-input>
               </el-form-item>
-              <el-form-item class="mt-30">
+              <el-form-item class="mt-40">
                 <el-button type="primary" class="w35 mr-20">登录</el-button>
                 <el-button type="text">忘记密码？</el-button>
               </el-form-item>

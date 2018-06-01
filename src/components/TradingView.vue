@@ -1,6 +1,6 @@
 <template>
   <div class="trade-view-comp">
-    <div class="container" id="trade-view-root">
+    <div id="trade-view-root">
     </div>
   </div>
 </template>
