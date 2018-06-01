@@ -6,21 +6,29 @@
         <news-comp></news-comp>
       </div>
       <div class="fl w75">
-        <kline-comp></kline-comp>
+        <kline-comp :base-coin="baseCoin"
+                    :target-coin="targetCoin" />
         <div class="clear-fix">
           <div class="w70 fl pr-10 border-box">
-            <operation-comp></operation-comp>
+            <operation-comp :base-coin="baseCoin"
+                            :target-coin="targetCoin" />
           </div>
           <div class="w30 fr">
-            <market-depth-comp></market-depth-comp>
+            <market-depth-comp
+              :base-coin="baseCoin"
+              :target-coin="targetCoin" />
           </div>
         </div>
         <div class="clear-fix">
           <div class="fl w60 pr-10 border-box">
-            <depth-char-comp></depth-char-comp>
+            <depth-char-comp
+              :base-coin="baseCoin"
+              :target-coin="targetCoin" />
           </div>
           <div class="fr w40">
-            <trades-list-comp></trades-list-comp>
+            <trades-list-comp
+              :base-coin="baseCoin"
+              :target-coin="targetCoin" />
           </div>
         </div>
         <coin-info-comp></coin-info-comp>
@@ -52,7 +60,10 @@ export default {
     TradesListComp,
   },
   data () {
-    return {}
+    return {
+      baseCoin: 'USDT',
+      targetCoin: 'BTC'
+    }
   },
   computed: {},
   watch: {},

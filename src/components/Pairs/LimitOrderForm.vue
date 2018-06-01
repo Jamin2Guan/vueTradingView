@@ -30,7 +30,7 @@
         <span>交易额 0.00000000 {{baseCoin}}</span>
       </el-form-item>
       <el-form-item>
-        <a href="javascript:" class="order-btn" :class="bgColor">{{formLabel.type}} BTC</a>
+        <a href="javascript:" class="order-btn" :class="bgColor">{{formLabel.type}} {{targetCoin}}</a>
       </el-form-item>
     </el-form>
   </div>
@@ -93,20 +93,20 @@ export default {
   color: #c7cce6;
   border-radius: 3px;
   text-align: center;
-  transition: .3s;
+  transition: .2s;
 }
 .order-btn.bg-buy:hover{
-  background-color: rgba(88,144,101,.8);
+  background-color: rgba(88,144,101,.9);
 }
 .order-btn.bg-buy:active{
-  background-color: rgba(88,144,101,.6);
+  background-color: rgba(88,144,101,.7);
 }
 
 .order-btn.bg-sell:hover{
-  background-color: rgba(174,78,84,.8);
+  background-color: rgba(174,78,84,.9);
 }
 .order-btn.bg-sell:active{
-  background-color: rgba(174,78,84,.6);
+  background-color: rgba(174,78,84,.7);
 }
 </style>
 <style>

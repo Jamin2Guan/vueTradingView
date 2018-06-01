@@ -1,6 +1,6 @@
 <template>
   <div class="cont-box">
-    <div class="cont-title">最新价 7471.47 USDT</div>
+    <div class="cont-title">最新价 7471.47 {{baseCoin}}</div>
     <div class="pv-10 ph-15 block-height">
       <table class="market-depth-table"
              cellpadding="0"
@@ -14,9 +14,9 @@
         <thead class="color-weak">
           <tr>
             <td></td>
-            <td>价格(USDT)</td>
-            <td>数量(BTC)</td>
-            <td>累计(BTC)</td>
+            <td>价格({{baseCoin}})</td>
+            <td>数量({{targetCoin}})</td>
+            <td>总额({{baseCoin}})</td>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +54,10 @@
 <script>
 export default {
   name: "market-depth-comp",
+  props: [
+    'baseCoin',
+    'targetCoin'
+  ],
   data () {
     return {
       selling: [
