@@ -2,7 +2,7 @@
   <div class="cont-box">
     <div class="cont-title">深度图</div>
     <div class="block-height">
-      <div id="chart-root" class="h100"></div>
+      <div id="chart-root"></div>
     </div>
   </div>
 </template>
@@ -979,4 +979,8 @@ export default {
 </script>
 
 <style scoped>
+  #chart-root{
+    height: 100%;
+    overflow: hidden;
+  }
 </style>

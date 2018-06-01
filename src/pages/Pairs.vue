@@ -1,19 +1,19 @@
 <template>
   <div id="page-pairs">
     <div class="pd-10 clear-fix">
-      <div class="fl w25 pr-10 border-box">
+      <div class="fl w22 pr-10 border-box">
         <pairs-info-comp></pairs-info-comp>
         <news-comp></news-comp>
       </div>
-      <div class="fl w75">
+      <div class="fl w78">
         <kline-comp :base-coin="baseCoin"
                     :target-coin="targetCoin" />
         <div class="clear-fix">
-          <div class="w70 fl pr-10 border-box">
+          <div class="w68 fl pr-10 border-box">
             <operation-comp :base-coin="baseCoin"
                             :target-coin="targetCoin" />
           </div>
-          <div class="w30 fr">
+          <div class="w32 fr">
             <market-depth-comp
               :base-coin="baseCoin"
               :target-coin="targetCoin" />
@@ -75,7 +75,20 @@ export default {
 
 <style>
   #page-pairs .block-height{
-    height: 380px;
+    height: 385px;
     box-sizing: border-box;
+    overflow-y: auto;
+  }
+  .w32{
+    width: 32%;
+  }
+  .w68{
+    width: 68%;
+  }
+  .w22{
+    width: 22%;
+  }
+  .w78{
+    width: 78%;
   }
 </style>

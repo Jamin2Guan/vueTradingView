@@ -186,7 +186,6 @@ export default {
 
 <style scoped>
 .tbody-wrap{
-  overflow-y: auto;
   line-height: 22px;
   text-align: center;
   font-size: 12px;

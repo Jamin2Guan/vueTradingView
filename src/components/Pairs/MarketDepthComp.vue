@@ -1,12 +1,12 @@
 <template>
   <div class="cont-box">
     <div class="cont-title">最新价 7471.47 {{baseCoin}}</div>
-    <div class="pv-10 ph-15 block-height">
+    <div class="pv-10 ph-5 block-height">
       <table class="market-depth-table"
              cellpadding="0"
              cellspacing="0">
         <colgroup>
-          <col class="w25">
+          <col class="w10">
           <col class="w25">
           <col class="w25">
           <col class="w25">
@@ -33,7 +33,7 @@
              cellpadding="0"
              cellspacing="0">
         <colgroup>
-          <col class="w25">
+          <col class="w10">
           <col class="w25">
           <col class="w25">
           <col class="w25">

@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="pairs-order-form">
     <el-form size="medium">
       <el-form-item :label="formLabel.price">
-        <el-input class="order-price">
+        <el-input class="order-price not-input" readonly :value="`以市场上最优价格${formLabel.type}`">
           <span slot="suffix">
             <span class="color-weak pr-10">{{baseCoin}}</span>
           </span>
@@ -11,7 +11,7 @@
       <el-form-item :label="formLabel.amount">
         <el-input>
           <span slot="suffix">
-            <span class="color-weak pr-10">{{targetCoin}}</span>
+            <span class="color-weak pr-10">{{orderCoin}}</span>
           </span>
         </el-input>
       </el-form-item>
@@ -27,10 +27,12 @@
         </div>
       </div>
       <el-form-item>
-        <span>交易额 0.00000000 {{baseCoin}}</span>
+        <div class="line-holder"></div>
       </el-form-item>
       <el-form-item>
-        <a href="javascript:" class="order-btn" :class="bgColor">{{formLabel.type}} {{targetCoin}}</a>
+        <a href="javascript:"
+           class="order-btn"
+           :class="bgColor">{{formLabel.type}} {{targetCoin}}</a>
       </el-form-item>
     </el-form>
   </div>
@@ -39,7 +41,7 @@
 <script>
 import SliderComp from '@c/Pairs/SliderComp'
 export default {
-  name: "limit-order-form",
+  name: "market-price-form-comp",
   components: {SliderComp},
   props: [
     'buyOrSell',
@@ -49,36 +51,45 @@ export default {
   data () {
     return {
       formData: {
-      }
+      },
+      formLabel: null,
+      bgColor: ''
     }
   },
   computed: {
-    formLabel () {
+    orderCoin () {
       switch (this.buyOrSell) {
         case 'buy':
-          return {
-            type: '买入',
-            price: '买入价',
-            amount: '买入量'
-          }
+          return this.baseCoin
         case 'sell':
-          return {
-            type: '卖出',
-            price: '卖出价',
-            amount: '卖出量'
-          }
-      }
-    },
-    bgColor () {
-      switch (this.buyOrSell) {
-        case 'buy':
-          return 'bg-buy'
-        case 'sell':
-          return 'bg-sell'
+          return this.targetCoin
       }
     }
   },
-  watch: {},
+  watch: {
+    buyOrSell: {
+      handler (BorS) {
+        switch (BorS) {
+          case 'buy':
+            this.formLabel = {
+              type: '买入',
+              price: '买入价',
+              amount: '交易额'
+            }
+            this.bgColor = 'bg-buy'
+            break
+          case 'sell':
+            this.formLabel = {
+              type: '卖出',
+              price: '卖出价',
+              amount: '卖出量'
+            }
+            this.bgColor = 'bg-sell'
+        }
+      },
+      immediate: true
+    }
+  },
   methods: {
 
   },
@@ -88,29 +99,13 @@ export default {
 </script>
 
 <style scoped>
-.order-btn {
-  display: block;
-  color: #c7cce6;
-  border-radius: 3px;
-  text-align: center;
-  transition: .2s;
-}
-.order-btn.bg-buy:hover{
-  background-color: rgba(88,144,101,.9);
-}
-.order-btn.bg-buy:active{
-  background-color: rgba(88,144,101,.7);
-}
-
-.order-btn.bg-sell:hover{
-  background-color: rgba(174,78,84,.9);
-}
-.order-btn.bg-sell:active{
-  background-color: rgba(174,78,84,.7);
+.line-holder{
+  height: 36px;
 }
 </style>
 <style>
-  .el-input--suffix .el-input__inner{
-    padding-right: 60px;
+  .not-input .el-input__inner{
+    border-color: transparent !important;
+    color: #61688a;
   }
 </style>
