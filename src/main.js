@@ -8,6 +8,7 @@ import store from './store'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
+import wsBus from './assets/js/wsBus'
 
 Vue.use(ElementUI)
 

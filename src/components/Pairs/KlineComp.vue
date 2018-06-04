@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import {createNamespacedHelpers} from 'vuex'
+const {mapGetters} = createNamespacedHelpers('pairs')
 // import Datafeeds from '../assets/js/datafeeds'
 import Datafeeds from '@a/js/myDatafeeds'
 
@@ -17,21 +19,24 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'klineSymbol'
+    ])
   },
   watch: {
   },
   methods: {
     tradingViewInit () {
         let widget = new window.TradingView.widget({ // eslint-disable-line
-        // debug: true, // uncomment this line to see Library errors and warnings in the console
+        debug: true, // uncomment this line to see Library errors and warnings in the console
         width: '100%',
         height: '100%',
         time_frames: [],
         fullscreen: false,
-        symbol: 'BTC_USDT',
+        symbol: this.klineSymbol,
         interval: localStorage.getItem('tradingview.interval') || 'D',
         container_id: 'trade-view-root',
-        datafeed: new Datafeeds('https://demo_feed.tradingview.com'),
+        datafeed: new Datafeeds(this.klineSymbol),
         library_path: '/static/chartTool/',
         locale: 'zh',
         timezone: 'Asia/Hong_Kong',

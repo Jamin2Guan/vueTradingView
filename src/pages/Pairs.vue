@@ -31,7 +31,7 @@
               :target-coin="targetCoin" />
           </div>
         </div>
-        <coin-info-comp></coin-info-comp>
+        <coin-info-comp :target-coin="targetCoin" />
       </div>
     </div>
   </div>

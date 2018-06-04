@@ -1,10 +1,14 @@
 import Axios from 'axios'
-let axios = Axios.create({
-  timeout: 1000 * 30
-})
+import wsBus from './wsBus'
+// let axios = Axios.create({
+//   timeout: 1000 * 30
+// })
+
+const supportedResolutions = ['1', '5', '15', '30', '60', 'D', 'W', 'M']
 
 export default class {
-  constructor () {
+  constructor (symbol) {
+    // this.symbol = symbol
     this.lastBar = null
   }
   //
@@ -12,7 +16,7 @@ export default class {
     let config = await Promise.resolve({
       supports_search: false,
       supports_group_request: false,
-      supported_resolutions: ['5', '15', '30', '60', 'D', 'W', 'M'],
+      supported_resolutions: supportedResolutions,
       supports_marks: false,
     })
     callback(config)
@@ -37,8 +41,8 @@ export default class {
       "has_intraday": true,
       // "has_no_volume":false,
       // "description":"Apple Inc.",
-      "supported_resolutions": ['5', '15', '30', '60', 'D', 'W', 'M'],
-      "intraday_multipliers": ['5', '15', '30', '60'],
+      "supported_resolutions": supportedResolutions,
+      // "intraday_multipliers": ['5', '15', '30', '60'],
       'has_empty_bars': true
     })
     onSymbolResolvedCallback(res)
@@ -46,42 +50,29 @@ export default class {
 
   async getBars (symbolInfo, resolution, from, to, onHistoryCallback, onErrorCallback, firstDataRequest) {
     console.log('getBars', ...arguments)
-    let {data: res} = await axios.get(`/tv/history?symbol=AAPL&resolution=${resolution}&from=${from}&to=${to}`)
-    if (res.s !== 'ok' && res.s !== 'no_data') return
+    // let {data: res} = await axios.get(`/tv/history?symbol=AAPL&resolution=${resolution}&from=${from}&to=${to}`)
     //
-    var bars = [];
-    var meta = {
+    let res = await wsBus.reqKlinHistory(symbolInfo.name, resolution, from, to)
+    // console.log('=========================', res)
+    if (res.status !== 'ok' && res.status !== 'no_data') return onHistoryCallback([], {noData: true})
+    let bars = []
+    let meta = {
       noData: false,
-    };
-    if (res.s === 'no_data') {
+    }
+
+    if (res.status === 'no_data' || !res.data.length) {
       meta.noData = true;
       meta.nextTime = res.nextTime; // 如果没有数据，应该有nextTime
     } else {
-      var volumePresent = res.v !== undefined;
-      var ohlPresent = res.o !== undefined;
-      for (var i = 0; i < res.t.length; ++i) {
-        var barValue = {
-          time: res.t[i] * 1000,
-          close: Number(res.c[i]),
-          open: Number(res.c[i]),
-          high: Number(res.c[i]),
-          low: Number(res.c[i]),
-        };
-        if (ohlPresent) {
-          barValue.open = Number(res.o[i]);
-          barValue.high = Number(res.h[i]);
-          barValue.low = Number(res.l[i]);
-        }
-        if (volumePresent) {
-          barValue.volume = Number(res.v[i]);
-        }
-        bars.push(barValue);
-      }
+      bars = res.data.map(obj => ({
+        time: obj.id * 1000,
+        open: obj.open,
+        close: obj.close,
+        high: obj.high,
+        low: obj.low,
+        vol: obj.vol
+      }))
     }
-    // if (!this.lastBar) {
-    //   this.lastBar = bars[bars.length - 1]
-    // }
-    // console.log(res)
     onHistoryCallback(bars, meta)
   }
 
@@ -107,6 +98,25 @@ export default class {
 
   calculateHistoryDepth (resolution, resolutionBack, intervalBack) {
     console.log('calculateHistoryDepth =====>\n', ...arguments)
+    if (+resolution > 0) {
+      return {
+        resolutionBack: 'D',
+        intervalBack: 0.2 * resolution
+      }
+    } else {
+      switch (resolution) {
+        case 'D':
+          return {
+            resolutionBack: 'D',
+            intervalBack: 200
+          }
+        case 'W':
+          return {
+            resolutionBack: 'M',
+            intervalBack: 10
+          }
+      }
+    }
   }
 
   getMarks (symbolInfo, startDate, endDate, onDataCallback, resolution) {

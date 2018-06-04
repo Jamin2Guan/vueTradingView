@@ -6,7 +6,8 @@
           <router-link tag="li"
                        :to="{name: 'Home'}"
                        class="nav-item link">
-            <img src="/static/img/logo-db.png" alt="" height="40">
+            <!--<img src="/static/img/logo-db.png" alt="" height="40">-->
+            <img src="/static/img/huobilogo.svg" alt="">
           </router-link>
           <li class="nav-item link">
             法币交易
@@ -40,9 +41,12 @@ export default {
 
 <style scoped>
 .comp-navbar{
+  width: 100%;
+  min-width: 1200px;
+  margin: 0 auto;
   height: 56px;
   line-height: 56px;
-  padding: 0 30px;
+  padding: 0 15px;
   box-sizing: border-box;
 }
   .nav-item{

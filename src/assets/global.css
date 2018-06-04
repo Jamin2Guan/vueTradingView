@@ -5,8 +5,8 @@ body {
   background: #262a42;
   color: #c7cce6;
   font: 14px/1.4 PingFang SC,Hiragino Sans GB,Heiti SC,Microsoft YaHei,WenQuanYi Micro Hei,serif;
-  min-width: 1080px;
-  max-width: 1920px;
+  min-width: 1200px;
+  /*max-width: 1920px;*/
   margin: 0 auto;
   /*color: #5F5F92;*/
   -webkit-font-smoothing: antialiased;
@@ -844,6 +844,10 @@ h1,h2,h3,h4,h5,h6{
   /*background: linear-gradient(to right, #750dec 0%,#4f02af 100%);*/
   /*border-color: #750dec;*/
 /*}*/
+.container-box{
+  max-width: 1920px;
+  margin: 0 auto;
+}
 .cont-box {
   background: #181b2a;
   border-radius: 3px;
