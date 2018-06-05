@@ -156,6 +156,6 @@ export default {
 
 <style>
   #trade-view-root {
-    height: 500px;
+    height: 445px;
   }
 </style>

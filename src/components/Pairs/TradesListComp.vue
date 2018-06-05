@@ -17,10 +17,18 @@
           <td>数量({{targetCoin}})</td>
         </tr>
         <tr v-for="(order,idx) in list" :key="idx">
-          <td>{{order.time}}</td>
-          <td>{{order.direction}}</td>
-          <td>{{order.price}}</td>
-          <td>{{order.amount}}</td>
+          <td>{{new Date(order.ts).toTimeString().slice(0, 8)}}</td>
+          <td>
+            <span :class="order.direction | directionClass">
+              {{order.direction | directionText}}
+            </span>
+          </td>
+          <td>
+            <obvious-price-comp :value="order.price | sliceTo(8)" />
+          </td>
+          <td>
+            <obvious-price-comp :value="order.amount | sliceTo(4)" />
+          </td>
         </tr>
         </tbody>
       </table>
@@ -29,157 +37,43 @@
 </template>
 
 <script>
+import wsBus from '@/assets/js/wsBus'
+import ObviousPriceComp from '@c/ObviousPriceComp'
 export default {
   name: "trades-list-comp",
+  components: {ObviousPriceComp},
   props: ['baseCoin', 'targetCoin'],
   data () {
     return {
-      list: [
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-        {
-          time: '10:53:24',
-          direction: 'buy',
-          price: 0.00164071,
-          amount: 227.56
-        },
-      ]
+      list: []
     }
   },
   computed: {},
+  filters: {
+    directionText (buyOrSell) {
+      return {
+        buy: '买',
+        sell: '卖'
+      }[buyOrSell]
+    },
+    directionClass (buyOrSell) {
+      return {
+        buy: ['color-buy'],
+        sell: ['color-sell']
+      }[buyOrSell]
+    }
+  },
   watch: {},
   methods: {},
-  created () {
+  async created () {
+    let res = await wsBus.reqTradDetail()
+    this.list = res
+    wsBus.$on('marketTradeDetail', data => {
+      data.forEach(o => {
+        this.list.unshift(o)
+        this.list.pop()
+      })
+    })
   }
 }
 </script>

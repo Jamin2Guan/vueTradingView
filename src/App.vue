@@ -34,13 +34,11 @@ export default {
     }
   },
   methods: {
-    subscribeWs (ws) {
-    },
-    init () {
-    }
   },
   created () {
-    // this.init()
+    // if (!window.WebSocket) {
+    //   alert('浏览器不支持websocket!')
+    // }
   }
 }
 </script>

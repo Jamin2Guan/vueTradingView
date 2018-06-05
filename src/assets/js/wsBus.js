@@ -3,7 +3,7 @@ import store from '@/store'
 import * as pako from 'pako'
 import {promiseBreaker} from "./tools";
 
-const WS_URL = 'wss://www.huobipro.com/-/s/pro/ws'
+const WS_URL = 'wss://api.huobi.pro/ws'
 
 let wsBus = window.wsBus = new Vue({
   store,
@@ -48,10 +48,19 @@ let wsBus = window.wsBus = new Vue({
           } else if (msg.ch && msg.ch.startsWith(`market.${this.klineSymbol}.kline`)) {
             this.$emit('subscribeBar', msg.tick)
           } else if (msg.ch && msg.ch.startsWith(`market.${this.klineSymbol}.depth`)) {
+            // console.log(msg)
             this.$emit('subscribeDepth', msg.tick)
           } else if (msg.id === `kline_${this.klineSymbol}_history`) {
             // console.log(msg)
             this.$emit('klineHistoryData', msg)
+          } else if (msg.ch === `market.${this.klineSymbol}.detail`) {
+            // this.$emit('marketDetail', msg)
+          } else if (msg.ch === `market.${this.klineSymbol}.trade.detail`) {
+            this.$emit('marketTradeDetail', msg.tick.data)
+          } else if (msg.id === `market.${this.klineSymbol}.trade.detail`) {
+            msg.status === 'ok' && this.$emit('marketTradeHistory', msg.data)
+          } else {
+            // console.log(msg)
           }
         }
       }
@@ -65,12 +74,7 @@ let wsBus = window.wsBus = new Vue({
         this.init();
       }
     },
-    subscribe (symbol) { // 0: (Array: symbols)
-      // 获取k线历史
-      // this.ws.send(JSON.stringify({
-      //   req: `market.${symbol}.kline.1min`,
-      //   id: `${symbol}`
-      // }))
+    subscribe (symbol) {
       // 订阅深度
       // 谨慎选择合并的深度，ws每次推送全量的深度数据，若未能及时处理容易引起消息堆积并且引发行情延时
       this.ws.send(JSON.stringify({
@@ -82,6 +86,14 @@ let wsBus = window.wsBus = new Vue({
         "sub": `market.${symbol}.kline.1min`,
         "id": `sub.market.${symbol}.kline`
       }))
+      // 订阅detail
+      this.ws.send(JSON.stringify({
+        "sub": `market.${symbol}.detail`
+      }))
+      // 订阅tradeDetail
+      this.ws.send(JSON.stringify({
+        "sub": `market.${symbol}.trade.detail`
+      }))
     },
     unsubscribe (symbol) {
       // 取消订阅
@@ -90,10 +102,14 @@ let wsBus = window.wsBus = new Vue({
         "unsub": `market.${symbol}.depth.step0`,
         "id": `market.${symbol}.depth`
       }))
-      // 订阅K线
+      // K线
       this.ws.send(JSON.stringify({
         "unsub": `market.${symbol}.kline.1min`,
         "id": `sub.market.${symbol}.kline`
+      }))
+      // detail
+      this.ws.send(JSON.stringify({
+        "unsub": `market.${symbol}.detail`
       }))
     },
     async reqKlinHistory (symbol, resolution, from, to) { // 请求k线历史数据
@@ -110,7 +126,7 @@ let wsBus = window.wsBus = new Vue({
         }[resolution]
       }
       let res = await new Promise((resolve, reject) => {
-        this.$on('klineHistoryData', (msg) => {
+        this.$once('klineHistoryData', (msg) => {
           resolve(msg)
         })
         this.ws.send(JSON.stringify({
@@ -121,11 +137,23 @@ let wsBus = window.wsBus = new Vue({
         }))
       })
       return res
+    },
+    async reqTradDetail () {
+      await this.connectReady
+      let res = await new Promise((resolve, reject) => {
+        this.$once('marketTradeHistory', msg => {
+          resolve(msg)
+        })
+        this.ws.send(JSON.stringify({
+          "req": `market.${this.klineSymbol}.trade.detail`,
+          id: `market.${this.klineSymbol}.trade.detail`
+        }))
+      })
+      return res
     }
   },
   created () {
     console.log('wsBus created!')
-    console.log(this)
     this.init()
   }
 })
