@@ -6,10 +6,11 @@
 </template>
 
 <script>
+import Datafeeds from '@a/js/myDatafeeds'
+
 import {createNamespacedHelpers} from 'vuex'
 const {mapGetters} = createNamespacedHelpers('pairs')
 // import Datafeeds from '../assets/js/datafeeds'
-import Datafeeds from '@a/js/myDatafeeds'
 
 console.log(Datafeeds)
 export default {
@@ -28,7 +29,7 @@ export default {
   methods: {
     tradingViewInit () {
         let widget = new window.TradingView.widget({ // eslint-disable-line
-        debug: true, // uncomment this line to see Library errors and warnings in the console
+        // debug: true, // uncomment this line to see Library errors and warnings in the console
         width: '100%',
         height: '100%',
         time_frames: [],
@@ -73,7 +74,7 @@ export default {
           // 'use_localstorage_for_settings',
           // 'study_templates',
           // 'timeframes_toolbar',
-          'dont_show_boolean_study_arguments',
+          // 'dont_show_boolean_study_arguments',
           'hide_last_na_study_output',
           // 'same_data_requery',
           // 'side_toolbar_in_fullscreen_mode',
@@ -89,6 +90,7 @@ export default {
         toolbar_bg: '#181b2a',
         overrides: {
           volumePaneSize: "small",
+          'paneProperties.legendProperties.showStudyArguments': true,
           'paneProperties.background': '#181b2a',
           'paneProperties.vertGridProperties.color': '#1f2943',
           'paneProperties.horzGridProperties.color': '#1f2943',

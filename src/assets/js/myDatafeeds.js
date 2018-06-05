@@ -1,4 +1,4 @@
-import Axios from 'axios'
+// import Axios from 'axios'
 import wsBus from './wsBus'
 // let axios = Axios.create({
 //   timeout: 1000 * 30
@@ -70,14 +70,25 @@ export default class {
         close: obj.close,
         high: obj.high,
         low: obj.low,
-        vol: obj.vol
+        volume: obj.vol
       }))
     }
     onHistoryCallback(bars, meta)
   }
 
   subscribeBars (symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) {
-    console.log('subscribeBars =====>\n', ...arguments)
+    // console.log('subscribeBars =====>\n', subscriberUID)
+    wsBus.$on('subscribeBar', tick => {
+      let {id, open, close, low, high, vol} = tick
+      onRealtimeCallback({
+        time: id * 1000,
+        open,
+        close,
+        low,
+        high,
+        volume: vol
+      })
+    })
     // setInterval(() => {
     //   let lBar = this.lastBar
     //   let newBar = {

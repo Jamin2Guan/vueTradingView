@@ -20,11 +20,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(order, idx) in selling" :key="idx">
-            <td class="color-sell">卖 {{selling.length - idx}}</td>
-            <td>{{order.price}}</td>
-            <td>{{order.amount}}</td>
-            <td>{{(order.price * order.amount).toFixed(4)}}</td>
+          <tr v-for="(order, idx) in asks" :key="idx">
+            <td class="color-sell">卖 {{asks.length - idx}}</td>
+            <td>
+              <obvious-price-comp :value="order[0] | sliceTo(8)"></obvious-price-comp>
+            </td>
+            <td>
+              <obvious-price-comp :value="order[1] | sliceTo(4)"></obvious-price-comp>
+            </td>
+            <td>
+              <obvious-price-comp :value="order[0] * order[1] | sliceTo(4)"></obvious-price-comp>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -39,11 +45,17 @@
           <col class="w25">
         </colgroup>
         <tbody>
-          <tr v-for="(order, idx) in buying" :key="idx">
+          <tr v-for="(order, idx) in bids" :key="idx">
             <td class="color-buy">买 {{idx+1}}</td>
-            <td>{{order.price}}</td>
-            <td>{{order.amount}}</td>
-            <td>{{(order.price * order.amount).toFixed(4)}}</td>
+            <td>
+              <obvious-price-comp :value="order[0] | sliceTo(8)"></obvious-price-comp>
+            </td>
+            <td>
+              <obvious-price-comp :value="order[1] | sliceTo(4)"></obvious-price-comp>
+            </td>
+            <td>
+              <obvious-price-comp :value="order[0] * order[1] | sliceTo(4)"></obvious-price-comp>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -52,80 +64,32 @@
 </template>
 
 <script>
+import wsBus from '@/assets/js/wsBus'
+import ObviousPriceComp from '@c/ObviousPriceComp'
+
 export default {
   name: "market-depth-comp",
+  components: {
+    ObviousPriceComp
+  },
   props: [
     'baseCoin',
     'targetCoin'
   ],
   data () {
     return {
-      selling: [
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        }
-      ],
-      buying: [
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        },
-        {
-          price: 7469.01,
-          amount: 0.0010
-        }
-      ]
+      asks: [],
+      bids: []
     }
   },
   computed: {},
   watch: {},
   methods: {},
   created () {
+    wsBus.$on('subscribeDepth', tick => {
+      this.asks = tick.asks.slice(0, 7)
+      this.bids = tick.bids.slice(0, 7)
+    })
   }
 }
 </script>
@@ -133,7 +97,7 @@ export default {
 <style scoped>
   .market-depth-table{
     width: 100%;
-    text-align: center;
+    text-align: right;
     font-size: 12px;
   }
   .market-depth-table td {
