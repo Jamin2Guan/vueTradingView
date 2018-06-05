@@ -18,7 +18,9 @@ export default {
   watch: {
     value: {
       handler () {
-        let validPart = this.validPart = +this.value + ''
+        let validPart = +this.value + ''
+        !~validPart.indexOf('.') && (validPart += '.')
+        this.validPart = validPart
         let zeroLength = this.value.length - validPart.length
         this.zeroPart = '00000000'.slice(0, zeroLength)
       },

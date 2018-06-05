@@ -55,8 +55,6 @@ export default {
     position: absolute;
     z-index: 5;
     top: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
     background-color: rgba(0, 0, 0, .1);
   }
   .pairs-navbar{

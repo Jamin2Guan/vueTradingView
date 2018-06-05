@@ -3,12 +3,13 @@
     <div class="clear-fix">
       <div class="fl">
         <ul class="nav-menu">
-          <!--<router-link tag="li"-->
-                       <!--:to="{name: 'Home'}"-->
-                       <!--class="nav-item link">-->
-            <!--&lt;!&ndash;<img src="/static/img/logo-db.png" alt="" height="40">&ndash;&gt;-->
+          <router-link tag="li"
+                       :to="{name: 'Home'}"
+                       class="nav-item link">
+            <!--<img src="/static/img/logo-db.png" alt="" height="40">-->
             <!--<img src="/static/img/huobilogo.svg" alt="">-->
-          <!--</router-link>-->
+            首页
+          </router-link>
           <li class="nav-item link">
             法币交易
           </li>
