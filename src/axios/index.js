@@ -19,10 +19,10 @@ axiosInstance.interceptors.response.use(
   }
 )
 
-let {get, post} = axiosInstance
+let {get: $get, post: $post} = axiosInstance
 
-let tipPost = axiosInstance.tipPost = async function (...args) {
-  let res = await post(...args)
+let $tipPost = axiosInstance.$tipPost = async function (...args) {
+  let res = await $post(...args)
   !res._statusOk && Message.error('' + res.msg)
   return res
 }
@@ -52,8 +52,8 @@ let inValidLogin = function () {
   store.dispatch('aLogout') // 强制注销用户信息
 }
 
-let fetch = axiosInstance.fetch = async function fetch (...args) {
-  let res = await post(...args)
+let $fetch = axiosInstance.$fetch = async function $fetch (...args) {
+  let res = await $post(...args)
   if (res._statusOk) return res
   if (res.status !== 90005) {
     // 非 无登录状态 引起的异常
@@ -69,13 +69,13 @@ let fetch = axiosInstance.fetch = async function fetch (...args) {
       switch (isTokenUpdating) {
         // 并发请求防止多次触发refreshToken
         case updateStatus.ready:
-          reqTokenUpdate = post('/api/refresh_token', {refresh_token})
+          reqTokenUpdate = $post('/api/refresh_token', {refresh_token})
             .then(
               resRefresh => {
                 if (resRefresh && resRefresh._statusOk) {
                   // 刷新token成功 更新本地token，重发请求
                   store.commit('mLogin', resRefresh.data)
-                  return fetch(...args)
+                  return $fetch(...args)
                 } else {
                   // 刷新失败
                   inValidLogin()
@@ -94,7 +94,7 @@ let fetch = axiosInstance.fetch = async function fetch (...args) {
           return reqTokenUpdate
         case updateStatus.pending:
           await reqTokenUpdate
-          return fetch(...args)
+          return $fetch(...args)
       }
     } else {
       // 没有refresh_token
@@ -119,16 +119,16 @@ let fetch = axiosInstance.fetch = async function fetch (...args) {
 
 Object.assign(Vue.prototype, {
   $http: axiosInstance,
-  $post: post,
-  $get: get,
-  $tipPost: tipPost,
-  $fetch: fetch
+  $post: $post,
+  $get: $get,
+  $tipPost: $tipPost,
+  $fetch: $fetch
 })
 
 export {
   axiosInstance as default,
-  get,
-  post,
-  tipPost,
-  fetch
+  $get,
+  $post,
+  $tipPost,
+  $fetch
 }

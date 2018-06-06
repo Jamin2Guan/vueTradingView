@@ -12,22 +12,13 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/huobi': {
-        target: 'https://www.huobipro.com/',
+        target: 'https://api.huobipro.com',
         changeOrigin: true,
         secure: false,
         pathRewrite: {
           '^/huobi': ''
         }
       },
-      '/tv': {
-        target: 'https://demo_feed.tradingview.com/',
-        changeOrigin: true,
-        secure: false,
-        pathRewrite: {
-          '^/tv': ''
-        }
-      },
-
     },
 
     // Various Dev Server settings

@@ -87,7 +87,7 @@ export default {
   methods: {},
   created () {
     wsBus.$on('subscribeDepth', tick => {
-      this.asks = tick.asks.slice(0, 7)
+      this.asks = tick.asks.slice(0, 7).reverse()
       this.bids = tick.bids.slice(0, 7)
     })
   }

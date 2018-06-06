@@ -1,15 +1,31 @@
 <template>
   <div class="trade-view-comp cont-box">
+    <div class="cont-title pair-title">
+      <h2 class="font-20 display-ib">{{baseCoin}}/{{targetCoin}}<span class="ml-15">{{curMkt.close | sliceTo(4)}}</span></h2>
+      <span class="ml-15">
+        涨幅 <span :class="curMkt | changeClass">{{(curMkt.close / curMkt.open - 1) * 100 | signed}}%</span>
+      </span>
+      <span class="ml-15">
+        高 {{curMkt.high | sliceTo(4)}}
+      </span>
+      <span class="ml-15">
+        低 {{curMkt.low | sliceTo(4)}}
+      </span>
+      <span class="ml-15">
+        24H量 {{curMkt.amount | sliceTo(0)}} {{targetCoin}}
+      </span>
+    </div>
     <div id="trade-view-root">
     </div>
   </div>
 </template>
 
 <script>
+import wsBus from '@/assets/js/wsBus'
 import Datafeeds from '@a/js/myDatafeeds'
 
 import {createNamespacedHelpers} from 'vuex'
-const {mapGetters} = createNamespacedHelpers('pairs')
+const {mapGetters, mapState} = createNamespacedHelpers('pairs')
 // import Datafeeds from '../assets/js/datafeeds'
 
 console.log(Datafeeds)
@@ -17,9 +33,14 @@ export default {
   name: 'kline-comp',
   data () {
     return {
+      curMkt: {}
     }
   },
   computed: {
+    ...mapState([
+      'baseCoin',
+      'targetCoin'
+    ]),
     ...mapGetters([
       'klineSymbol'
     ])
@@ -150,6 +171,11 @@ export default {
   },
   mounted () {
     this.tradingViewInit()
+  },
+  created () {
+    wsBus.$on('marketDetail', m => { // {amount, close, count, high, id, low, open, version, vol}
+      this.curMkt = m
+    })
   }
 }
 </script>
@@ -157,5 +183,8 @@ export default {
 <style>
   #trade-view-root {
     height: 445px;
+  }
+  .pair-title {
+    padding: 10px 15px;
   }
 </style>

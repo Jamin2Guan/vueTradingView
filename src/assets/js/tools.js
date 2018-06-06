@@ -3,6 +3,7 @@ const promiseBreaker = function () {
   let promise = new Promise((s, j) => { // eslint-disable-line
     resolve = s
     reject = j
+    setTimeout(reject, 15 * 1000, 'pending time up')
   })
   return Object.assign(promise, {resolve, reject})
 }

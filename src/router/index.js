@@ -29,6 +29,9 @@ export default new Router({
       name: 'Pairs',
       component: Pairs
     },
-
+    {
+      path: '*',
+      redirect: '/'
+    }
   ]
 })

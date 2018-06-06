@@ -10,7 +10,8 @@ let wsBus = window.wsBus = new Vue({
   data: {
     ws: null,
     WS_URL: '',
-    connectReady: promiseBreaker() // 将是可外部决议的promise
+    connectReady: promiseBreaker(), // 将是可外部决议的promise
+    hasSubMktOverview: false
   },
   computed: {
     klineSymbol () { // 币币交易symbol
@@ -27,9 +28,12 @@ let wsBus = window.wsBus = new Vue({
     init () {
       let ws = this.ws = new WebSocket(WS_URL);
       ws.onopen = () => {
-        this.connectReady.resolve()
         console.log('ws open');
+
+        this.connectReady.resolve()
         this.subscribe(this.klineSymbol);
+        // this.hasSubMktOverview && this.subMktOverView()
+        this.subMktOverView()
       }
       ws.onmessage = (ev) => {
         let fileReader = new FileReader()
@@ -54,13 +58,15 @@ let wsBus = window.wsBus = new Vue({
             // console.log(msg)
             this.$emit('klineHistoryData', msg)
           } else if (msg.ch === `market.${this.klineSymbol}.detail`) {
-            // this.$emit('marketDetail', msg)
+            this.$emit('marketDetail', msg.tick)
           } else if (msg.ch === `market.${this.klineSymbol}.trade.detail`) {
             this.$emit('marketTradeDetail', msg.tick.data)
           } else if (msg.id === `market.${this.klineSymbol}.trade.detail`) {
             msg.status === 'ok' && this.$emit('marketTradeHistory', msg.data)
+          } else if (msg.ch === 'market.overview') {
+            store.commit('pairs/marketOverview', msg.data)
           } else {
-            // console.log(msg)
+            console.log(msg)
           }
         }
       }
@@ -150,6 +156,13 @@ let wsBus = window.wsBus = new Vue({
         }))
       })
       return res
+    },
+    async subMktOverView () {
+      await this.connectReady
+      this.ws.send(JSON.stringify({
+        "sub": `market.overview`,
+      }))
+      this.hasSubMktOverview = true
     }
   },
   created () {

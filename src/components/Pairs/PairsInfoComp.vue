@@ -6,15 +6,10 @@
           <strong>市场</strong>
         </div>
         <div class="pair-symbols">
-          <span class="link"
-                @click="baseCoin='USDT'"
-                :class="{'is-active': baseCoin==='USDT'}">USDT</span>
-          <span class="link"
-                @click="baseCoin='BTC'"
-                :class="{'is-active': baseCoin==='BTC'}">BTC</span>
-          <span class="link"
-                @click="baseCoin='ETH'"
-                :class="{'is-active': baseCoin==='ETH'}">ETH</span>
+          <span v-for="bcName in Object.keys(allPairSymbols)" :key="bcName"
+                class="link"
+                @click="updateBaseCoin(bcName)"
+                :class="{'is-active': baseCoin === bcName}">{{bcName}}</span>
         </div>
       </div>
       <div class="pt-15">
@@ -39,10 +34,10 @@
               <col class="w30">
               <col class="w30">
             </colgroup>
-            <tr v-for="(coin,idx) in coinList" :key="idx">
-              <td class="coin-symbol">{{coin.symbol.slice(0,3)}}</td>
-              <td>{{coin.close}}</td>
-              <td class="coin-change">{{coin.change}}</td>
+            <tr v-for="(mkt, tcName) in allPairSymbols[baseCoin]" :key="tcName">
+              <td class="coin-symbol">{{tcName}}</td>
+              <td>{{mkt.close | fixedTo(8)}}</td>
+              <td :class="mkt | changeClass">{{(mkt.close / mkt.open -1) * 100 | signed}}%</td>
             </tr>
           </table>
         </div>
@@ -52,180 +47,39 @@
 </template>
 
 <script>
+// import wsBus from '@a/js/wsBus'
+import ObviousPriceComp from '@c/ObviousPriceComp'
+import {createNamespacedHelpers} from 'vuex'
+let {mapState, mapMutations} = createNamespacedHelpers('pairs')
 export default {
   name: "pairs-info-comp",
+  components: {
+    ObviousPriceComp
+  },
   data () {
     return {
-      baseCoin: 'USDT',
-      coinList: [
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-        {
-          symbol: 'BTC_USDT',
-          close: 1578.45,
-          change: -6.32
-        },
-
-      ]
     }
   },
-  computed: {},
+  computed: {
+    // ...mapGetters([
+    //   'allBaseCoins'
+    // ]),
+    ...mapState([
+      'allPairSymbols',
+      'baseCoin'
+    ])
+  },
   watch: {},
-  methods: {},
+  methods: {
+    ...mapMutations([
+      'updateBaseCoin'
+    ])
+  },
   created () {
+    // wsBus.$on('marketOverview', msg => {
+    //   console.log(msg)
+    // })
+    // console.log(this.allPairSymbols)
   }
 }
 </script>

@@ -35,10 +35,13 @@ export default {
   },
   methods: {
   },
-  created () {
+  async created () {
     // if (!window.WebSocket) {
     //   alert('浏览器不支持websocket!')
     // }
+    // let res = await this.$get('https://api.huobipro.com/v1/common/symbols')
+    // console.log(res)
+    this.$store.dispatch('pairs/getAllSymbols')
   }
 }
 </script>
