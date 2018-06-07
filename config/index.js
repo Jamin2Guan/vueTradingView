@@ -14,7 +14,7 @@ module.exports = {
       '/huobi': {
         target: 'https://api.huobipro.com',
         changeOrigin: true,
-        secure: false,
+        secure: false, // https需要
         pathRewrite: {
           '^/huobi': ''
         }

@@ -4,7 +4,7 @@ Vue.filter('sliceTo', (num, n) => {
   if (Number.isNaN(+num)) return '--'
   if (num < 0) return num.toFixed(n)
   let decimalHolder = Math.pow(10, n)
-  return (Math.floor(num * decimalHolder) / decimalHolder).toFixed(n)
+  return (Math.floor((num + 1e-12) * decimalHolder) / decimalHolder).toFixed(n)
 })
 
 Vue.filter('fixedTo', (num, n) => {

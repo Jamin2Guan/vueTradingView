@@ -10,9 +10,11 @@
             <!--<img src="/static/img/huobilogo.svg" alt="">-->
             首页
           </router-link>
-          <li class="nav-item link">
+          <router-link tag="li"
+                       :to="{name: 'Trade'}"
+                       class="nav-item link">
             法币交易
-          </li>
+          </router-link>
           <router-link tag="li"
                        :to="{name: 'Pairs'}"
                        class="nav-item link">
@@ -54,5 +56,6 @@ export default {
     display: inline-block;
     margin: 0 10px;
     padding: 0 5px;
+    border: none;
   }
 </style>

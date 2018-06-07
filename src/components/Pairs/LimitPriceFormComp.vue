@@ -30,7 +30,7 @@
         <div>交易额 0.00000000 {{baseCoin}}</div>
       </el-form-item>
       <el-form-item>
-        <a href="javascript:" class="order-btn" :class="bgColor">{{formLabel.type}} {{targetCoin}}</a>
+        <a  class="order-btn" :class="bgColor">{{formLabel.type}} {{targetCoin}}</a>
       </el-form-item>
     </el-form>
   </div>

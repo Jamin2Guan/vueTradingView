@@ -21,9 +21,9 @@
               <col class="w30">
             </colgroup>
             <tr>
-              <th class="coin-symbol">币种</th>
+              <th>币种</th>
               <th>最新价</th>
-              <th class="coin-change">涨跌幅</th>
+              <th class="pr-5">涨跌幅</th>
             </tr>
           </table>
         </div>
@@ -34,10 +34,17 @@
               <col class="w30">
               <col class="w30">
             </colgroup>
-            <tr v-for="(mkt, tcName) in allPairSymbols[baseCoin]" :key="tcName">
-              <td class="coin-symbol">{{tcName}}</td>
-              <td>{{mkt.close | fixedTo(8)}}</td>
-              <td :class="mkt | changeClass">{{(mkt.close / mkt.open -1) * 100 | signed}}%</td>
+            <tr v-for="(mkt, tcName) in allPairSymbols[baseCoin]"
+                :key="tcName">
+              <td>
+                {{tcName}}
+              </td>
+              <td>
+                {{mkt.close | fixedTo(8)}}
+              </td>
+              <td :class="mkt | changeClass">
+                {{(mkt.close / mkt.open -1) * 100 | signed}}%
+              </td>
             </tr>
           </table>
         </div>
@@ -116,13 +123,5 @@ export default {
   }
   .table-body tr:last-child td {
     border-bottom-color: transparent;
-  }
-  .coin-symbol{
-    padding-left: 15px;
-    text-align: left;
-  }
-  .coin-change{
-    padding-right: 15px;
-    text-align: right;
   }
 </style>

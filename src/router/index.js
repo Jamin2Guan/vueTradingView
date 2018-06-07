@@ -4,6 +4,7 @@ import Home from '@p/Home'
 import Register from '@p/Register'
 import Login from '@p/Login'
 import Pairs from '@p/Pairs'
+import Trade from '@p/Trade'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/Pairs',
       name: 'Pairs',
       component: Pairs
+    },
+    {
+      path: '/Trade',
+      name: 'Trade',
+      component: Trade
     },
     {
       path: '*',

@@ -30,8 +30,7 @@
         <div class="line-holder"></div>
       </el-form-item>
       <el-form-item>
-        <a href="javascript:"
-           class="order-btn"
+        <a class="order-btn"
            :class="bgColor">{{formLabel.type}} {{targetCoin}}</a>
       </el-form-item>
     </el-form>

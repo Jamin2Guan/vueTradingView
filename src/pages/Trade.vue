@@ -1,0 +1,58 @@
+<template>
+  <div id="page-trade">
+    <div class="main-box clear-fix">
+      <div class="fl w20 pr-30 border-box">
+        <coin-list-comp />
+      </div>
+      <div class="fr w80">
+        <trade-user-info-comp class="mb-15" />
+        <entrust-list-comp />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import CoinListComp from '@c/Trade/CoinListComp'
+import TradeUserInfoComp from '@c/Trade/TradeUserInfoComp'
+import EntrustListComp from '@c/Trade/EntrustListComp'
+export default {
+  name: "trade",
+  components: {
+    CoinListComp,
+    TradeUserInfoComp,
+    EntrustListComp
+  },
+  data () {
+    return {
+      coins: [
+        'USDT',
+        'BTC',
+        'ETH',
+        'ETC',
+        'LTC',
+        'EOS',
+        'BCH',
+        'QTUM',
+        'NEO',
+        'XUC',
+      ]
+    }
+  },
+  computed: {},
+  watch: {},
+  methods: {}
+}
+</script>
+
+<style scoped>
+  #page-trade{
+    background: #fcfcfc;
+    color: #262a42;
+    padding: 60px 0;
+  }
+  .main-box{
+    width: 1200px;
+    margin: 0 auto;
+  }
+</style>

@@ -5,22 +5,22 @@
                  :format-tooltip="sliderFormat"
       ></el-slider>
       <div class="relative">
-        <a href="javascript:"
+        <a
            class="stop stop-0 active"
            @click="sliderVal=0"></a>
-        <a href="javascript:"
+        <a
            class="stop stop-1"
            :class="{active: sliderVal>=25}"
            @click="sliderVal=25"></a>
-        <a href="javascript:"
+        <a
            class="stop stop-2"
            :class="{active: sliderVal>=50}"
            @click="sliderVal=50"></a>
-        <a href="javascript:"
+        <a
            class="stop stop-3"
            :class="{active: sliderVal>=75}"
            @click="sliderVal=75"></a>
-        <a href="javascript:" class="stop stop-4" @click="sliderVal=100"></a>
+        <a  class="stop stop-4" @click="sliderVal=100"></a>
       </div>
     </div>
   </div>
