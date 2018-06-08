@@ -11,12 +11,12 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/huobi': {
+      '/huobipro': {
         target: 'https://api.huobipro.com',
         changeOrigin: true,
         secure: false, // https需要
         pathRewrite: {
-          '^/huobi': ''
+          '^/huobipro': ''
         }
       },
     },

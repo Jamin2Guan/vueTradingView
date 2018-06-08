@@ -22,7 +22,17 @@
           <th>下单时间</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
+        <tr>
+          <td>1456789243857</td>
+          <td>卖出</td>
+          <td>交易完成</td>
+          <td>USDT/CNY</td>
+          <td>6.42CNY</td>
+          <td>2500USDT</td>
+          <td>16050.00CNY</td>
+          <td>2018-06-08 12:13:09</td>
+        </tr>
         <tr>
           <td>1456789243857</td>
           <td>卖出</td>
@@ -66,9 +76,16 @@ export default {
   th {
     font-weight: normal;
     color: #666666;
-    padding: 5px 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
-  .trade-order-table{
+  thead>tr{
+    background-color: #f5f5f5;
+  }
+  tbody{
     line-height: 40px;
+  }
+  tbody td {
+    border-bottom: 1px solid #e0e0e0;
   }
 </style>

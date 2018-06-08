@@ -1,31 +1,104 @@
 <template>
   <div class="comp-coin-list">
       <el-tabs v-model="activeBaseCoin" type="card">
-        <el-tab-pane v-for="(list, baseCoin) in pairs"
+        <el-tab-pane v-for="(obj, baseCoin) in allPairSymbols || initSymbols"
                      :name="baseCoin"
                      :key="baseCoin">
           <div slot="label" class="tab-label">
             <img width="22"
                  height="22"
                  class="mr-10"
-                 :src="`/static/img/coin/icon-${baseCoin}.png`" alt="">
+                 :src="`https://www.huobipro.com/home/${baseCoin.toLowerCase()}.svg`" alt="">
             {{baseCoin}}
           </div>
           <div class="border">
-            <el-table :data="Object.values(list)"
-                      row-class-name="pointer font-14"
-                      size="small">
-              <el-table-column label="交易对" prop="targetCoin">
-                <template slot-scope="scope">
-                  <span>{{scope.row.targetCoin}} <span class="color-weak">/ {{baseCoin}}</span></span>
-                </template>
-              </el-table-column>
-              <el-table-column label="最新价" prop="close"></el-table-column>
-              <el-table-column label="涨幅" prop="change"></el-table-column>
-              <el-table-column label="最高价" prop="high"></el-table-column>
-              <el-table-column label="最低价" prop="low"></el-table-column>
-              <el-table-column label="24H量" prop="vol"></el-table-column>
-            </el-table>
+            <!--<el-table :data="Object.values(obj)"-->
+                      <!--row-class-name="pointer font-14"-->
+                      <!--size="small">-->
+              <!--<el-table-column label="交易对">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<span>{{scope.row.symbol | getTargetCoin(baseCoin)}} <span class="color-weak">/ {{baseCoin}}</span></span>-->
+                <!--</template>-->
+              <!--</el-table-column>-->
+              <!--<el-table-column label="最新价">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<obvious-price-comp :value="scope.row.close | sliceTo(8)" />-->
+                <!--</template>-->
+              <!--</el-table-column>-->
+              <!--<el-table-column label="涨幅">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<span :class="scope.row | changeClass">{{(scope.row.close / scope.row.open -1) * 100 | signed}}%</span>-->
+                <!--</template>-->
+              <!--</el-table-column>-->
+              <!--<el-table-column label="最高价">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<obvious-price-comp :value="scope.row.high | sliceTo(8)" />-->
+                <!--</template>-->
+              <!--</el-table-column>-->
+              <!--<el-table-column label="最低价">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<obvious-price-comp :value="scope.row.low | sliceTo(8)" />-->
+                <!--</template>-->
+              <!--</el-table-column>-->
+              <!--<el-table-column label="24H量">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<span>{{scope.row.vol | sliceTo(0)}} <span class="color-weak">{{scope.row.symbol | getTargetCoin(baseCoin)}}</span></span>-->
+                <!--</template>-->
+              <!--</el-table-column>-->
+            <!--</el-table>-->
+            <div class="head-table pr-6">
+              <table>
+                <colgroup>
+                  <col class="w15">
+                  <col class="w15">
+                  <col class="w15">
+                  <col class="w15">
+                  <col class="w15">
+                  <col class="w15">
+                </colgroup>
+                <tr>
+                  <th>交易对</th>
+                  <th>最新价</th>
+                  <th>涨幅</th>
+                  <th>最高价</th>
+                  <th>最低价</th>
+                  <th>24H量</th>
+                </tr>
+              </table>
+            </div>
+            <div class="body-table-wrap">
+              <table class="body-table">
+                <colgroup>
+                  <col class="w15">
+                  <col class="w15">
+                  <col class="w15">
+                  <col class="w15">
+                  <col class="w15">
+                  <col class="w15">
+                </colgroup>
+                <tr v-for="(mkt, targetCoin) in  obj" :key="targetCoin" class="table-row">
+                  <td>{{targetCoin}} <span class="color-weak">/ {{baseCoin}}</span></td>
+                  <td>
+                    <obvious-price-comp :value="mkt.close | sliceTo(8)" />
+                  </td>
+                  <td>
+                    <span :class="mkt | changeClass">
+                      {{(mkt.close / mkt.open -1) * 100 | signed}}%
+                      <i :class="mkt | arrows"></i>
+                    </span>
+                  </td>
+                  <td>
+                    <obvious-price-comp :value="mkt.high | sliceTo(8)" />
+                  </td>
+                  <td>
+                    <obvious-price-comp :value="mkt.low | sliceTo(8)" />
+                  </td>
+                  <td>
+                    {{mkt.amount | sliceTo(0)}} <span class="color-weak">{{targetCoin}}</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -33,145 +106,44 @@
 </template>
 
 <script>
+import ObviousPriceComp from '@c/ObviousPriceComp'
+import {createNamespacedHelpers} from 'vuex'
+const {mapState} = createNamespacedHelpers('pairs')
+
 export default {
   name: "coin-list-comp",
+  components: {ObviousPriceComp},
   data () {
     return {
-      pairs: {
-        USDT: [
-          {
-            targetCoin: 'BTC',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'BCH',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'ETH',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'ETC',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'LTC',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'BTC',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'BCH',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'ETH',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'ETC',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'LTC',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'BTC',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'BCH',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'ETH',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'ETC',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-          {
-            targetCoin: 'LTC',
-            close: 0.128845,
-            change: -1.69,
-            high: 7431.12,
-            low: 7176.29,
-            vol: 15108
-          },
-
-        ],
-        BTC: [],
-        ETH: []
-      },
       favoritePairs: [],
       activeBaseCoin: 'USDT'
+    }
+  },
+  computed: {
+    ...mapState([
+      'allPairSymbols'
+    ])
+  },
+  filters: {
+    getTargetCoin (symbol, baseCoin) {
+      return symbol
+        ? symbol.slice(0, symbol.lastIndexOf(baseCoin.toLowerCase())).toUpperCase()
+        : '--'
+    },
+    arrows (mkt) {
+      let {close, open} = mkt
+      if (close > open) return 'el-icon-caret-top'
+      else if (close < open) return 'el-icon-caret-bottom'
+      else return ''
     }
   }
 }
 </script>
 
 <style scoped>
+  .comp-coin-list {
+    padding: 30px;
+  }
   .tab-label {
     padding: 0 20px;
     color: #c7cce6;
@@ -182,10 +154,34 @@ export default {
   .border {
     border: 1px solid #4e5b85;
   }
-</style>
-<style>
-  .comp-coin-list .el-table__body-wrapper {
+  .body-table-wrap{
+    max-height: 550px;
     overflow-y: auto;
-    max-height: 500px;
+    text-align: center;
+  }
+  .body-table-wrap tr {
+    background-color: #202437;
+    box-shadow:0 0 1px hsla(231,9%,54%,.2);
+    cursor: pointer;
+  }
+  .body-table-wrap tr:hover {
+    background-color: #1b1e2e;
+  }
+  .table-row>td:first-child,th:first-child{
+    padding-left: 30px;
+    text-align: left;
+  }
+  .table-row>td:last-child,th:last-child{
+    padding-right: 30px;
+    text-align: right;
+  }
+  th,td{
+    line-height: 35px;
   }
 </style>
+<!--<style>-->
+  <!--.comp-coin-list .el-table__body-wrapper {-->
+    <!--overflow-y: auto;-->
+    <!--max-height: 600px;-->
+  <!--}-->
+<!--</style>-->

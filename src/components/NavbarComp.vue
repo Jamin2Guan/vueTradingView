@@ -6,9 +6,9 @@
           <router-link tag="li"
                        :to="{name: 'Home'}"
                        class="nav-item link">
-            <img src="/static/img/laex-logo.jpg" alt="" height="40">
+            <!--<img src="/static/img/laex-logo.jpg" alt="" height="40">-->
             <!--<img src="/static/img/huobilogo.svg" alt="">-->
-            <!--首页-->
+            首页
           </router-link>
           <router-link tag="li"
                        :to="{name: 'Trade'}"
@@ -20,6 +20,30 @@
                        class="nav-item link">
             币币交易
           </router-link>
+          <router-link tag="li"
+                       :to="{name: 'Finance'}"
+                       class="nav-item link">
+            资产
+          </router-link>
+          <li class="nav-item">
+            <el-popover
+              trigger="hover"
+              placement="bottom-start"
+              :visible-arrow="false"
+              :offset="-20"
+              popper-class="user-center-popper">
+              <span class="pointer" slot="reference">个人中心 <i class="el-icon-caret-bottom"></i></span>
+              <ul>
+                <router-link tag="li"
+                             :to="{name: 'UserInfo'}"
+                             class="sub-nav-item">账号安全</router-link>
+                <router-link tag="li"
+                             :to="{name: 'UserAuth'}"
+                             class="sub-nav-item">身份认证</router-link>
+              </ul>
+            </el-popover>
+          </li>
+
         </ul>
       </div>
       <div class="fr">
@@ -57,5 +81,24 @@ export default {
     margin: 0 10px;
     padding: 0 5px;
     border: none;
+  }
+  .sub-nav-item{
+    padding: 10px 20px;
+    color: #c7cce6;
+    border-bottom: 1px solid #1f2943;
+    cursor: pointer;
+  }
+  .sub-nav-item:hover{
+    background-color: #1e2235;
+  }
+</style>
+<style>
+  .user-center-popper{
+    border: none;
+    background-color: #262a42;
+    box-shadow: 0 8px 16px rgba(0,0,0,.4);
+    border-radius: 3px;
+    padding: 10px 0;
+    margin-top: 0 !important;
   }
 </style>

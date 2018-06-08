@@ -5,7 +5,7 @@ export default {
   state: {
     baseCoin: 'USDT',
     targetCoin: 'BTC',
-    allPairSymbols: {}
+    allPairSymbols: JSON.parse(localStorage.getItem('allPairSymbols')) || {}
   },
   getters: {
     klineSymbol (state) {
@@ -31,8 +31,9 @@ export default {
     updateTargetCoin (state, newTargetCoin) {
       state.targetCoin = newTargetCoin
     },
-    updateGetAllSymbols (state, arrSymbols) {
-      state.allPairSymbols = arrSymbols
+    updateGetAllSymbols (state, allSymbols) {
+      state.allPairSymbols = allSymbols
+      localStorage.setItem('allPairSymbols', JSON.stringify(allSymbols))
     },
     marketOverview (state, arrData) {
       let allSbls = state.allPairSymbols
@@ -48,8 +49,13 @@ export default {
     }
   },
   actions: {
-    async getAllSymbols ({commit}) {
-      let res = await $get('https://api.huobipro.com/v1/common/symbols')
+    async getAllSymbols ({commit, dispatch}) {
+      let res
+      try {
+        res = await $get('https://api.huobipro.com/v1/common/symbols')
+      } catch (err) {
+        return dispatch('getAllSymbols')
+      }
       if (res.status === 'ok') {
         let obj = {}
         res.data.forEach(pair => {
@@ -66,7 +72,6 @@ export default {
             }
           }
         })
-        console.log(obj)
         commit('updateGetAllSymbols', obj)
       }
     }

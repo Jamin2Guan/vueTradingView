@@ -29,7 +29,7 @@ export default {
 }
   .news-menu {
     height: 100%;
-    overflow-y: hidden;
+    overflow: hidden;
   }
   .news-item {
     display: inline-block;

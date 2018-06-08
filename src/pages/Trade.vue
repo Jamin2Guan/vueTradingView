@@ -52,7 +52,7 @@ export default {
   #page-trade{
     background: #fcfcfc;
     color: #262a42;
-    padding: 60px 0;
+    padding: 40px 0;
   }
   .main-box{
     width: 1200px;

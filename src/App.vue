@@ -42,6 +42,7 @@ export default {
     // let res = await this.$get('https://api.huobipro.com/v1/common/symbols')
     // console.log(res)
     this.$store.dispatch('pairs/getAllSymbols')
+    this.$store.dispatch('getBalance')
   }
 }
 </script>

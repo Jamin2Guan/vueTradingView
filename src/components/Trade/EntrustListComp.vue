@@ -5,7 +5,7 @@
     </div>
     <div class="divider"></div>
     <div class="entrust-table">
-      <div class="head-table pv-5">
+      <div class="head-table pv-5 pr-15">
         <table>
           <colgroup>
             <col class="w5">
@@ -15,9 +15,8 @@
             <col class="w15">
             <col class="w10">
             <col class="w10">
-            <col class="w10">
+            <col class="w5">
           </colgroup>
-          <thead>
           <tr>
             <th class="text-center">排位</th>
             <th>价格(CNY)</th>
@@ -25,10 +24,9 @@
             <th>所有金额</th>
             <th>委托人/单数/完成率</th>
             <th>单笔限额</th>
-            <th>支付方式</th>
-            <th class="text-center">下单</th>
+            <th class="pay-method-cell">支付方式</th>
+            <th class="text-left">下单</th>
           </tr>
-          </thead>
         </table>
       </div>
       <div class="body-table">
@@ -42,9 +40,8 @@
               <col class="w15">
               <col class="w10">
               <col class="w10">
-              <col class="w10">
+              <col class="w5">
             </colgroup>
-            <tbody>
             <tr v-for="(o, idx) in asks" :key="o.id">
               <td class="color-sell text-center">{{asks.length - idx}}</td>
               <td>{{o.price}}</td>
@@ -52,12 +49,15 @@
               <td>{{calcTotal(o.price, o.tradeCount) | sliceTo(2)}}</td>
               <td>{{o.userName}} ({{o.tradeMonthTimes}} / {{o.orderCompleteRate}}%)</td>
               <td>{{o.minTradeLimit}}-{{o.maxTradeLimit}}</td>
-              <td>{{o.payMethod}}</td>
-              <td class="text-center">
+              <td class="pay-method-cell">
+                <img v-for="n in o.payMethod.split(',')"
+                     :key="n"
+                     :src="n | payMethodIcon" alt="">
+              </td>
+              <td class="text-left">
                 <a class="btn-buy color-buy">买入</a>
               </td>
             </tr>
-            </tbody>
           </table>
         </div>
 
@@ -71,9 +71,8 @@
               <col class="w15">
               <col class="w10">
               <col class="w10">
-              <col class="w10">
+              <col class="w5">
             </colgroup>
-            <tbody>
             <tr v-for="(o, idx) in bids" :key="o.id">
               <td class="color-buy text-center">{{idx + 1}}</td>
               <td>{{o.price}}</td>
@@ -81,17 +80,18 @@
               <td>{{calcTotal(o.price, o.tradeCount) | sliceTo(2)}}</td>
               <td>{{o.userName}} ( {{o.tradeMonthTimes}} / {{o.orderCompleteRate}}%)</td>
               <td>{{o.minTradeLimit}}-{{o.maxTradeLimit}}</td>
-              <td>{{o.payMethod}}</td>
-              <td class="text-center">
+              <td class="pay-method-cell">
+                <img v-for="n in o.payMethod.split(',')"
+                     :key="n"
+                     :src="n | payMethodIcon" alt="">
+              </td>
+              <td class="text-left">
                 <a class="btn-sell color-sell">卖出</a>
               </td>
             </tr>
-            </tbody>
           </table>
         </div>
-
       </div>
-
     </div>
   </div>
 </template>
@@ -108,6 +108,18 @@ export default {
     }
   },
   computed: {},
+  filters: {
+    payMethodIcon (n) {
+      switch (n) {
+        case '1':
+          return '/static/img/icon/bankcard.png'
+        case '2':
+          return '/static/img/icon/alipay.png'
+        case '3':
+          return '/static/img/icon/wechat.png'
+      }
+    }
+  },
   watch: {},
   methods: {
     calcTotal (price, amount) {
@@ -128,6 +140,7 @@ export default {
       this.$get('https://otc-api.huobipro.com/v1/data/trade/list/public?country=37&currency=1&payMethod=0&currPage=1&coinId=2&tradeType=0&merchant=1&online=1')
         .then(res => {
           res.code === 200 && (this.bids = res.data)
+          console.log(res)
         })
     }
   },
@@ -157,7 +170,7 @@ export default {
     border-radius: 3px;
   }
   #asks-wrap,#bids-wrap {
-    height: 228px;
+    height: 224px;
     overflow-y: scroll;
   }
   #asks-wrap{
@@ -184,5 +197,12 @@ export default {
     border-radius: 3px;
     padding: 2px 15px;
     font-size: 12px;
+  }
+  .pay-method-cell{
+    text-align: left;
+    padding-left: 25px;
+  }
+  .pay-method-cell img{
+    margin: 0 2px;
   }
 </style>
