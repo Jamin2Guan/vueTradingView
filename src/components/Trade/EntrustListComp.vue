@@ -1,7 +1,7 @@
 <template>
   <div class="entrust-list-comp">
-    <div class="text-right">
-      价格不合适？<el-button type="text">发布交易单</el-button>
+    <div class="text-right pb-5">
+      价格不合适？<a class="color-primary">发布交易单</a>
     </div>
     <div class="divider"></div>
     <div class="entrust-table">
@@ -50,7 +50,7 @@
               <td>{{o.price}}</td>
               <td>{{o.tradeCount | sliceTo(2)}}</td>
               <td>{{calcTotal(o.price, o.tradeCount) | sliceTo(2)}}</td>
-              <td>{{o.userName}} ({{o.tradeMonthTimes}} | {{o.orderCompleteRate}}%)</td>
+              <td>{{o.userName}} ({{o.tradeMonthTimes}} / {{o.orderCompleteRate}}%)</td>
               <td>{{o.minTradeLimit}}-{{o.maxTradeLimit}}</td>
               <td>{{o.payMethod}}</td>
               <td class="text-center">
@@ -79,7 +79,7 @@
               <td>{{o.price}}</td>
               <td>{{o.tradeCount | sliceTo(2)}}</td>
               <td>{{calcTotal(o.price, o.tradeCount) | sliceTo(2)}}</td>
-              <td>{{o.userName}} ( {{o.tradeMonthTimes}} | {{o.orderCompleteRate}}%)</td>
+              <td>{{o.userName}} ( {{o.tradeMonthTimes}} / {{o.orderCompleteRate}}%)</td>
               <td>{{o.minTradeLimit}}-{{o.maxTradeLimit}}</td>
               <td>{{o.payMethod}}</td>
               <td class="text-center">
@@ -121,6 +121,7 @@ export default {
             this.needToBottom && this.$nextTick(() => {
               let box = this.$refs.asksWrap
               box.scrollTop = box.offsetHeight
+              this.needToBottom = false
             })
           }
         })

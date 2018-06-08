@@ -6,9 +6,9 @@
           <router-link tag="li"
                        :to="{name: 'Home'}"
                        class="nav-item link">
-            <!--<img src="/static/img/logo-db.png" alt="" height="40">-->
+            <img src="/static/img/laex-logo.jpg" alt="" height="40">
             <!--<img src="/static/img/huobilogo.svg" alt="">-->
-            首页
+            <!--首页-->
           </router-link>
           <router-link tag="li"
                        :to="{name: 'Trade'}"

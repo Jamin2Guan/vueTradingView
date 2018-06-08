@@ -5,8 +5,9 @@
         <coin-list-comp />
       </div>
       <div class="fr w80">
-        <trade-user-info-comp class="mb-15" />
-        <entrust-list-comp />
+        <trade-user-info-comp/>
+        <entrust-list-comp class="mt-15 mb-30" />
+        <user-trade-orders-comp />
       </div>
     </div>
   </div>
@@ -16,12 +17,14 @@
 import CoinListComp from '@c/Trade/CoinListComp'
 import TradeUserInfoComp from '@c/Trade/TradeUserInfoComp'
 import EntrustListComp from '@c/Trade/EntrustListComp'
+import UserTradeOrdersComp from '@c/Trade/UserTradeOrdersComp'
 export default {
   name: "trade",
   components: {
     CoinListComp,
     TradeUserInfoComp,
-    EntrustListComp
+    EntrustListComp,
+    UserTradeOrdersComp
   },
   data () {
     return {
