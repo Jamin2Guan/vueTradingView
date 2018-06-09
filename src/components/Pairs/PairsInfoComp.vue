@@ -8,7 +8,7 @@
         <div class="pair-symbols">
           <span v-for="bcName in Object.keys(allPairSymbols)" :key="bcName"
                 class="link"
-                @click="updateBaseCoin(bcName)"
+                @click="baseCoin = bcName"
                 :class="{'is-active': baseCoin === bcName}">{{bcName}}</span>
         </div>
       </div>
@@ -35,6 +35,7 @@
               <col class="w30">
             </colgroup>
             <tr v-for="(mkt, tcName) in allPairSymbols[baseCoin]"
+                @click="updateKlineSymbol({baseCoin, targetCoin: tcName})"
                 :key="tcName">
               <td>
                 {{tcName}}
@@ -65,6 +66,7 @@ export default {
   },
   data () {
     return {
+      baseCoin: 'USDT'
     }
   },
   computed: {
@@ -72,14 +74,14 @@ export default {
     //   'allBaseCoins'
     // ]),
     ...mapState([
-      'allPairSymbols',
-      'baseCoin'
+      'allPairSymbols'
     ])
   },
   watch: {},
   methods: {
     ...mapMutations([
-      'updateBaseCoin'
+      'updateBaseCoin',
+      'updateKlineSymbol'
     ])
   },
   created () {

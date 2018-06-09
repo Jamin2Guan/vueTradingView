@@ -20,8 +20,8 @@ let wsBus = window.wsBus = new Vue({
   },
   watch: {
     klineSymbol (newSymbol, oldSymbol) {
-      this.ws.unsubscribe(oldSymbol)
-      this.ws.subscribe(newSymbol)
+      this.unsubscribe(oldSymbol)
+      this.subscribe(newSymbol)
     }
   },
   methods: {
@@ -105,17 +105,21 @@ let wsBus = window.wsBus = new Vue({
       // 取消订阅
       // 市场深度
       this.ws.send(JSON.stringify({
-        "unsub": `market.${symbol}.depth.step0`,
-        "id": `market.${symbol}.depth`
+        "unsub": `market.${symbol}.depth.step1`,
+        "id": `unsub.market.${symbol}.depth`
       }))
       // K线
       this.ws.send(JSON.stringify({
         "unsub": `market.${symbol}.kline.1min`,
-        "id": `sub.market.${symbol}.kline`
+        "id": `unsub.market.${symbol}.kline`
       }))
       // detail
       this.ws.send(JSON.stringify({
         "unsub": `market.${symbol}.detail`
+      }))
+      // tradeDetail
+      this.ws.send(JSON.stringify({
+        "unsub": `market.${symbol}.trade.detail`
       }))
     },
     async reqKlinHistory (symbol, resolution, from, to) { // 请求k线历史数据

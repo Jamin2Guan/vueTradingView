@@ -1,7 +1,7 @@
 <template>
   <div class="trade-view-comp cont-box">
     <div class="cont-title pair-title">
-      <h2 class="font-20 display-ib">{{baseCoin}}/{{targetCoin}}<span class="ml-15">{{curMkt.close | sliceTo(4)}}</span></h2>
+      <h2 class="font-20 display-ib">{{targetCoin}}/{{baseCoin}}<span class="ml-15">{{curMkt.close | sliceTo(4)}}</span></h2>
       <span class="ml-15">
         涨幅 <span :class="curMkt | changeClass">{{(curMkt.close / curMkt.open - 1) * 100 | signed}}%</span>
       </span>
@@ -46,6 +46,9 @@ export default {
     ])
   },
   watch: {
+    klineSymbol () {
+      this.tradingViewInit()
+    }
   },
   methods: {
     tradingViewInit () {

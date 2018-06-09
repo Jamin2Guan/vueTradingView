@@ -6,9 +6,9 @@
           <router-link tag="li"
                        :to="{name: 'Home'}"
                        class="nav-item link">
-            <!--<img src="/static/img/laex-logo.jpg" alt="" height="40">-->
+            <img src="/static/img/laex-logo.png" alt="" height="30">
             <!--<img src="/static/img/huobilogo.svg" alt="">-->
-            首页
+            <!--首页-->
           </router-link>
           <router-link tag="li"
                        :to="{name: 'Trade'}"
@@ -75,6 +75,7 @@ export default {
   line-height: 56px;
   padding: 0 15px;
   box-sizing: border-box;
+  background-color: #181b2a;
 }
   .nav-item{
     display: inline-block;
@@ -99,6 +100,6 @@ export default {
     box-shadow: 0 8px 16px rgba(0,0,0,.4);
     border-radius: 3px;
     padding: 10px 0;
-    margin-top: 0 !important;
+    /*margin-top: 0 !important;*/
   }
 </style>

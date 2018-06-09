@@ -31,6 +31,10 @@ export default {
     updateTargetCoin (state, newTargetCoin) {
       state.targetCoin = newTargetCoin
     },
+    updateKlineSymbol (state, {baseCoin, targetCoin}) {
+      state.baseCoin = baseCoin
+      state.targetCoin = targetCoin
+    },
     updateGetAllSymbols (state, allSymbols) {
       state.allPairSymbols = allSymbols
       localStorage.setItem('allPairSymbols', JSON.stringify(allSymbols))

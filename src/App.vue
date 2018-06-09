@@ -31,6 +31,9 @@ export default {
         case 'Pairs':
           return 'pairs-navbar'
       }
+      return this.$route.name === 'Home'
+        ? 'home-navbar'
+        : ''
     }
   },
   methods: {
@@ -57,9 +60,6 @@ export default {
     position: absolute;
     z-index: 5;
     top: 0;
-    background-color: rgba(0, 0, 0, .1);
-  }
-  .pairs-navbar{
-    background-color: #181b2a;
+    background-color: rgba(0, 0, 0, .1) !important;
   }
 </style>
