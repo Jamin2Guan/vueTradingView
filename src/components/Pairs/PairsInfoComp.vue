@@ -34,14 +34,14 @@
               <col class="w30">
               <col class="w30">
             </colgroup>
-            <tr v-for="(mkt, tcName) in allPairSymbols[baseCoin]"
+            <tr :class="{'bg-current': mkt.symbol === klineSymbol}" v-for="(mkt, tcName) in allPairSymbols[baseCoin]"
                 @click="updateKlineSymbol({baseCoin, targetCoin: tcName})"
                 :key="tcName">
               <td>
                 {{tcName}}
               </td>
               <td>
-                {{mkt.close | fixedTo(8)}}
+                <obvious-price-comp :value="mkt.close | fixedTo(8)" />
               </td>
               <td :class="mkt | changeClass">
                 {{(mkt.close / mkt.open -1) * 100 | signed}}%
@@ -58,7 +58,7 @@
 // import wsBus from '@a/js/wsBus'
 import ObviousPriceComp from '@c/ObviousPriceComp'
 import {createNamespacedHelpers} from 'vuex'
-let {mapState, mapMutations} = createNamespacedHelpers('pairs')
+let {mapState, mapMutations, mapGetters} = createNamespacedHelpers('pairs')
 export default {
   name: "pairs-info-comp",
   components: {
@@ -70,9 +70,9 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters([
-    //   'allBaseCoins'
-    // ]),
+    ...mapGetters([
+      'klineSymbol'
+    ]),
     ...mapState([
       'allPairSymbols'
     ])
@@ -115,7 +115,7 @@ export default {
   .table-body tr {
     cursor: pointer;
   }
-  .table-body tr:hover td{
+  .table-body tr:hover, .bg-current{
     background-color: #1E2235;
   }
   .table-body td {

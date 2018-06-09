@@ -39,16 +39,25 @@
 <script>
 import wsBus from '@/assets/js/wsBus'
 import ObviousPriceComp from '@c/ObviousPriceComp'
+import {createNamespacedHelpers} from 'vuex'
+const {mapState, mapGetters} = createNamespacedHelpers('pairs')
 export default {
   name: "trades-list-comp",
   components: {ObviousPriceComp},
-  props: ['baseCoin', 'targetCoin'],
   data () {
     return {
       list: []
     }
   },
-  computed: {},
+  computed: {
+    ...mapState([
+      'baseCoin',
+      'targetCoin'
+    ]),
+    ...mapGetters([
+      'klineSymbol'
+    ])
+  },
   filters: {
     directionText (buyOrSell) {
       return {
@@ -63,17 +72,24 @@ export default {
       }[buyOrSell]
     }
   },
-  watch: {},
-  methods: {},
-  async created () {
-    let res = await wsBus.reqTradDetail()
-    this.list = res
-    wsBus.$on('marketTradeDetail', data => {
-      data.forEach(o => {
-        this.list.unshift(o)
-        this.list.pop()
+  watch: {
+    klineSymbol: {
+      handler: 'init',
+      immediate: true
+    }
+  },
+  methods: {
+    async init () {
+      this.list = []
+      let res = await wsBus.reqTradDetail()
+      this.list = res
+      wsBus.$on('marketTradeDetail', data => {
+        data.forEach(o => {
+          this.list.unshift(o)
+          this.list.pop()
+        })
       })
-    })
+    }
   }
 }
 </script>

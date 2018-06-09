@@ -1,6 +1,6 @@
 <template>
   <div class="cont-box">
-    <div class="cont-title">最新价 7471.47 {{baseCoin}}</div>
+    <div class="cont-title">最新价 {{currentPrice}} {{baseCoin}}</div>
     <div class="pv-10 ph-5 block-height">
       <table class="market-depth-table"
              cellpadding="0"
@@ -66,24 +66,39 @@
 <script>
 import wsBus from '@/assets/js/wsBus'
 import ObviousPriceComp from '@c/ObviousPriceComp'
+import {createNamespacedHelpers} from 'vuex'
+const {mapState, mapGetters} = createNamespacedHelpers('pairs')
 
 export default {
   name: "market-depth-comp",
   components: {
     ObviousPriceComp
   },
-  props: [
-    'baseCoin',
-    'targetCoin'
-  ],
   data () {
     return {
       asks: [],
       bids: []
     }
   },
-  computed: {},
-  watch: {},
+  computed: {
+    currentPrice () {
+      return 12345
+    },
+    ...mapState([
+      'baseCoin',
+      'targetCoin',
+      'allPairSymbols'
+    ]),
+    ...mapGetters([
+      'klineSymbol'
+    ])
+  },
+  watch: {
+    klineSymbol () {
+      this.asks = []
+      this.bids = []
+    }
+  },
   methods: {},
   created () {
     wsBus.$on('subscribeDepth', tick => {

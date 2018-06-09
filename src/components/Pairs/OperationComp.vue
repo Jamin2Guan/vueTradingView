@@ -11,22 +11,14 @@
     <div class="clear-fix ph-15 pt-25 block-height">
       <div class="fl w50 pr-15 border-box">
         <limit-price-form-comp v-if="priceType==='limit'"
-                          base-coin="USDT"
-                          target-coin="BTC"
                           buy-or-sell="buy" />
         <market-price-form-comp v-if="priceType==='market'"
-                          base-coin="USDT"
-                          target-coin="BTC"
                           buy-or-sell="buy" />
       </div>
       <div class="fr w50 pl-15 border-box">
         <limit-price-form-comp v-if="priceType==='limit'"
-                          base-coin="USDT"
-                          target-coin="BTC"
                           buy-or-sell="sell" />
         <market-price-form-comp v-if="priceType==='market'"
-                          base-coin="USDT"
-                          target-coin="BTC"
                           buy-or-sell="sell" />
       </div>
     </div>
@@ -36,6 +28,8 @@
 <script>
 import LimitPriceFormComp from '@c/Pairs/LimitPriceFormComp'
 import MarketPriceFormComp from '@c/Pairs/MarketPriceFormComp'
+import {createNamespacedHelpers} from 'vuex'
+const {mapState} = createNamespacedHelpers('pairs')
 export default {
   name: "operation-comp",
   components: {
@@ -47,7 +41,12 @@ export default {
       priceType: 'limit'
     }
   },
-  computed: {},
+  computed: {
+    ...mapState([
+      // 'baseCoin',
+      // 'targetCoin'
+    ])
+  },
   watch: {},
   methods: {},
   created () {

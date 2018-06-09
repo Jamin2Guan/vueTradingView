@@ -38,13 +38,14 @@
 
 <script>
 import SliderComp from '@c/Pairs/SliderComp'
+import {createNamespacedHelpers} from 'vuex'
+const {mapState} = createNamespacedHelpers('pairs')
+
 export default {
   name: "limit-price-form-comp",
   components: {SliderComp},
   props: [
-    'buyOrSell',
-    'baseCoin',
-    'targetCoin'
+    'buyOrSell'
   ],
   data () {
     return {
@@ -76,7 +77,11 @@ export default {
         case 'sell':
           return 'bg-sell'
       }
-    }
+    },
+    ...mapState([
+      'baseCoin',
+      'targetCoin'
+    ])
   },
   watch: {},
   methods: {

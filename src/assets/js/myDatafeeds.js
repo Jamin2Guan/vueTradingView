@@ -33,10 +33,10 @@ export default class {
       ticker: symbolName,
       type: 'bitcoin',
       "timezone": 'Asia/Hong_Kong',
-      "minmov": 0.0001, // 最小波动
-      "pricescale": 0.0001, // 价格刻度
+      "minmov": 1, // 最小波动
+      "pricescale": 100000000, // 价格刻度
       // "minmov2": 0.0001,
-      // "pointvalue": 0.0001,
+      // "pointvalue": 0.00000001,
       "session": "24x7",
       "has_intraday": true,
       // "has_no_volume":false,

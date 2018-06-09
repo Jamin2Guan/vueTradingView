@@ -19,11 +19,11 @@
       <div class="mb-25">
         <div class="clear-fix font-12" v-if="buyOrSell==='buy'">
           <span class="fl">0 {{baseCoin}}</span>
-          <span class="fr">0.0000 {{baseCoin}}</span>
+          <span class="fr">0.00000000 {{baseCoin}}</span>
         </div>
         <div class="clear-fix font-12" v-else>
           <span class="fl">0 {{targetCoin}}</span>
-          <span class="fr">0.0000 {{targetCoin}}</span>
+          <span class="fr">0.00000000 {{targetCoin}}</span>
         </div>
       </div>
       <el-form-item>
@@ -39,13 +39,14 @@
 
 <script>
 import SliderComp from '@c/Pairs/SliderComp'
+import {createNamespacedHelpers} from 'vuex'
+const {mapState} = createNamespacedHelpers('pairs')
+
 export default {
   name: "market-price-form-comp",
   components: {SliderComp},
   props: [
-    'buyOrSell',
-    'baseCoin',
-    'targetCoin'
+    'buyOrSell'
   ],
   data () {
     return {
@@ -63,7 +64,11 @@ export default {
         case 'sell':
           return this.targetCoin
       }
-    }
+    },
+    ...mapState([
+      'baseCoin',
+      'targetCoin'
+    ])
   },
   watch: {
     buyOrSell: {

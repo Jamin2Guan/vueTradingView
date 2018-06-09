@@ -5,7 +5,8 @@ export default {
   state: {
     baseCoin: 'USDT',
     targetCoin: 'BTC',
-    allPairSymbols: JSON.parse(localStorage.getItem('allPairSymbols')) || {}
+    allPairSymbols: JSON.parse(localStorage.getItem('allPairSymbols')) || {},
+    currentMkt: {}
   },
   getters: {
     klineSymbol (state) {

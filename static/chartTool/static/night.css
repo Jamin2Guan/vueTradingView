@@ -165,3 +165,9 @@ html,body,
 .favored-list-container span.selected {
   background: transparent;
 }
+.main-properties{
+  padding: 10px 25px !important;
+}
+._tv-dialog{
+  top: 0 !important;
+}

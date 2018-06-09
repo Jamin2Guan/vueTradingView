@@ -18,7 +18,11 @@ export default {
   watch: {
     value: {
       handler () {
-        let validPart = +this.value + ''
+        if (Number.isNaN(+this.value)) {
+          this.validPart = '--'
+          return
+        }
+        let validPart = (+this.value).toFixed(8).replace(/0+$/, '')
         !~validPart.indexOf('.') && (validPart += '.')
         this.validPart = validPart
         let zeroLength = ('' + this.value).length - validPart.length

@@ -9,19 +9,58 @@
 
 <script>
 import wsBus from '@/assets/js/wsBus'
+import {createNamespacedHelpers} from 'vuex'
+const {mapState, mapGetters} = createNamespacedHelpers('pairs')
 export default {
   name: "depth-char-comp",
-  props: [
-    'baseCoin',
-    'targetCoin'
-  ],
   data () {
     return {
       chart: null,
     }
   },
-  computed: {},
-  watch: {},
+  computed: {
+    ...mapState([
+      'baseCoin',
+      'targetCoin'
+    ]),
+    ...mapGetters([
+      'klineSymbol'
+    ])
+  },
+  watch: {
+    klineSymbol () {
+      this.chart.setOption({
+        tooltip: {
+          formatter: params => {
+            let isBuySeries = params.length === 2
+            let data = params[0].data
+            // console.log(data)
+            let color = isBuySeries ? 'color-buy' : 'color-sell'
+            return `委托价<span class="${color} ml-15">${(+params[0].axisValue).toFixed(8)}</span> ${this.baseCoin}<br/>
+                    累积量<span class="${color} ml-15">${data.toFixed(2)}</span> ${this.targetCoin}</span>`
+          },
+        },
+        textStyle: {
+          color: '#61688a'
+        },
+        xAxis: {
+          name: `委单价格（${this.baseCoin}）`,
+          data: []
+        },
+        yAxis: {
+          name: `累积量（${this.targetCoin}）`
+        },
+        series: [
+          {
+            data: []
+          },
+          {
+            data: []
+          }
+        ]
+      })
+    }
+  },
   methods: {
     chartInit () {
       // 基于准备好的dom，初始化echarts实例
@@ -35,7 +74,7 @@ export default {
           top: 40,
           bottom: 55,
           left: 50,
-          right: 50
+          right: 80
         },
         tooltip: {
           show: true,
@@ -54,8 +93,8 @@ export default {
             let data = params[0].data
             // console.log(data)
             let color = isBuySeries ? 'color-buy' : 'color-sell'
-            return `委托价<span class="${color} ml-15">${(+params[0].axisValue).toFixed(4)}</span> ${this.baseCoin}<br/>
-                    累积量<span class="${color} ml-15">${data.toFixed(4)}</span> ${this.targetCoin}</span>`
+            return `委托价<span class="${color} ml-15">${(+params[0].axisValue).toFixed(8)}</span> ${this.baseCoin}<br/>
+                    累积量<span class="${color} ml-15">${data.toFixed(2)}</span> ${this.targetCoin}</span>`
           },
           textStyle: {
             color: '#61688a'
@@ -78,6 +117,11 @@ export default {
         },
         yAxis: {
           name: `累积量（${this.targetCoin}）`,
+          axisLabel: {
+            formatter (value) {
+              return `${(value / 1000).toFixed(2)}K`
+            }
+          },
           type: 'value',
           position: 'right',
           splitNumber: 0,

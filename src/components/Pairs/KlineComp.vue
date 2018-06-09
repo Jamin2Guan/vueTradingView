@@ -56,7 +56,6 @@ export default {
         // debug: true, // uncomment this line to see Library errors and warnings in the console
         width: '100%',
         height: '100%',
-        time_frames: [],
         fullscreen: false,
         symbol: this.klineSymbol,
         interval: localStorage.getItem('tradingview.interval') || 'D',
@@ -82,7 +81,7 @@ export default {
           // 'snapshot_trading_drawings',
           'symbol_info',
           'volume_force_overlay',
-          // 'items_favoriting',
+          'items_favoriting',
           'header_layouttoggle',
           // 'chart_crosshair_menu',
           // 'open_account_manager',
@@ -92,10 +91,10 @@ export default {
           // 'header_settings',
           'save_chart_properties_to_local_storage',
           'display_market_status',
-          'timeframes_toolbar'
+          'timeframes_toolbar',
+          'use_localstorage_for_settings',
         ],
         enabled_features: [
-          // 'use_localstorage_for_settings',
           // 'study_templates',
           // 'timeframes_toolbar',
           // 'dont_show_boolean_study_arguments',
@@ -104,7 +103,8 @@ export default {
           // 'side_toolbar_in_fullscreen_mode',
           'hide_left_toolbar_by_default'
         ],
-        // charts_storage_url: 'http://saveload.tradingview.com',
+        studies_overrides: {
+        },
         charts_storage_api_version: '1.1',
         client_id: 'tradingview.com',
         user_id: 'public_user_id',
@@ -114,7 +114,7 @@ export default {
         toolbar_bg: '#181b2a',
         overrides: {
           volumePaneSize: "small",
-          'paneProperties.legendProperties.showStudyArguments': true,
+          'paneProperties.legendProperties.showStudyValues': true,
           'paneProperties.background': '#181b2a',
           'paneProperties.vertGridProperties.color': '#1f2943',
           'paneProperties.horzGridProperties.color': '#1f2943',
@@ -143,8 +143,6 @@ export default {
           'scalesProperties.lineColor': '#61688a',
 
           'paneProperties.legendProperties.showSeriesTitle': false, // 取消symbolInfo
-        },
-        studies_overrides: {
         },
         custom_css_url: './night.css'
       })
@@ -185,7 +183,7 @@ export default {
 
 <style>
   #trade-view-root {
-    height: 445px;
+    height: 450px;
   }
   .pair-title {
     padding: 10px 15px;
