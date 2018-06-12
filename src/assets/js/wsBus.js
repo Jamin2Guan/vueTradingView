@@ -77,7 +77,7 @@ let wsBus = window.wsBus = new Vue({
       }
       ws.onerror = err => {
         console.log('ws error', err);
-        this.init();
+        // this.init();
       }
     },
     subscribe (symbol) {

@@ -27,7 +27,10 @@ img {
 a {
   cursor: pointer;
   text-decoration: none;
-  color: #7a98f7;
+  color: #7A98F7;
+}
+a:hover{
+  color: rgb(149, 173, 249);
 }
 p {
   line-height: 1.5;
@@ -910,6 +913,21 @@ table{
 .link.is-active {
   border-bottom-color: currentColor;
   color: #7a98f7;
+}
+
+.page-container{
+  width: 1200px;
+  margin: 30px auto;
+}
+.page-container .cont-box{
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-bottom: 20px;
+}
+.page-title{
+  font-size: 20px;
+  padding: 15px 0;
+  margin-bottom: 20px;
 }
 
 .entry-page{

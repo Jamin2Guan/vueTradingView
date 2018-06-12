@@ -25,3 +25,5 @@ Vue.filter('changeClass', mkt => {
   else if (close < open) return 'color-sell'
   else return ''
 })
+
+Vue.filter('upperCase', str => str.toUpperCase())

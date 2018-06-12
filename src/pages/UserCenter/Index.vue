@@ -1,6 +1,6 @@
 <template>
-  <div id="page-user-center">
-    <div class="cont-box font-20 pv-15">
+  <div id="page-user-center" class="page-container">
+    <div class="cont-box page-title">
       {{$route.name}}
     </div>
     <router-view></router-view>
@@ -21,18 +21,7 @@ export default {
 }
 </script>
 
-<style scoped>
-#page-user-center{
-  width: 1200px;
-  margin: 30px auto;
-}
-</style>
 <style>
-  #page-user-center .cont-box{
-    padding-left: 30px;
-    padding-right: 30px;
-    margin-bottom: 20px;
-  }
   #page-user-center .cont-title{
     font-size: 16px;
     line-height: 48px;

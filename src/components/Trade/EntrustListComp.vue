@@ -104,7 +104,10 @@ export default {
     return {
       asks: [],
       bids: [],
-      needToBottom: true
+      needToBottom: true,
+      interval: {
+        getEntrustList: 0
+      }
     }
   },
   computed: {},
@@ -146,7 +149,10 @@ export default {
   },
   async created () {
     this.getEntrustList()
-    setInterval(this.getEntrustList, 10 * 1000)
+    this.interval.getEntrustList = setInterval(this.getEntrustList, 10 * 1000)
+  },
+  beforeDestroy () {
+    Object.values(this.interval).forEach(id => clearInterval(id))
   }
 }
 </script>

@@ -29,6 +29,6 @@ module.exports = {
     'comma-dangle': 'off',
     'semi': 'off',
     'camelcase': 'off',
-    'standard/no-callback-literal': 'off'
+    'standard/no-callback-literal': 'off',
   }
 }

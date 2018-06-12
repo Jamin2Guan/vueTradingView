@@ -25,12 +25,12 @@ export default {
   },
   computed: {
     navbarClass () {
-      switch (this.$route.name) {
-        case 'Home':
-          return 'home-navbar'
-        case 'Pairs':
-          return 'pairs-navbar'
-      }
+      // switch (this.$route.name) {
+      //   case 'Home':
+      //     return 'home-navbar'
+      //   case 'Pairs':
+      //     return 'pairs-navbar'
+      // }
       return this.$route.name === 'Home'
         ? 'home-navbar'
         : ''

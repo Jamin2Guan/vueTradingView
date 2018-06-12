@@ -13,7 +13,7 @@ const store = new Vuex.Store({
     pairs
   },
   state: {
-    balance: []
+    balance: {}
   },
   mutations: {
     updateGetBalance (state, list) {
