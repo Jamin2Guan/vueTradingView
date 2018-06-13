@@ -16,20 +16,20 @@
         </thead>
         <tbody>
         <template v-for="(oCoin, coinName) in balance">
-          <tr :key="coinName" @click="currentCoin=coinName">
+          <tr :key="coinName" :class="{'is-active': coinName===currentCoin}">
             <td>{{coinName | upperCase}}</td>
             <td>{{oCoin.trade | sliceTo(8)}}</td>
             <td>{{oCoin.frozen | sliceTo(8)}}</td>
             <td></td>
             <td class="operation">
-              <a>充币</a>
-              <a>提币</a>
+              <a @click="showTrans(coinName, 'in')">充币</a>
+              <a @click="showTrans(coinName, 'out')">提币</a>
               <a>交易</a>
             </td>
           </tr>
           <tr v-if="currentCoin===coinName" :key="coinName+'append'" class="trans-tr">
             <td colspan="5">
-              <div class="trans-in-box" v-if="true">
+              <div class="trans-in-box" v-if="transDirection==='in'">
                 <p class="mt-0">充币地址</p>
                 <div>
                   <span class="coin-addr">1NfeuPpn8W7XdiLPy1EWHFmofa3BtnAoLm</span>
@@ -45,7 +45,7 @@
                   • 请务必确认电脑及浏览器安全，防止信息被篡改或泄露。</p>
                 <i class="angle"></i>
               </div>
-              <div class="trans-out-box" v-if="true">
+              <div class="trans-out-box" v-if="transDirection==='out'">
                 <div class="">
                   <el-form>
                     <el-form-item label="提币地址">
@@ -98,7 +98,8 @@ export default {
   name: "finance",
   data () {
     return {
-      currentCoin: 'usdt'
+      currentCoin: 'usdt',
+      transDirection: '' // in | out
     }
   },
   computed: {
@@ -106,8 +107,14 @@ export default {
       'balance'
     ])
   },
-  watch: {},
-  methods: {},
+  watch: {
+  },
+  methods: {
+    showTrans (coin, direction) {
+      this.transDirection = direction
+      this.currentCoin = coin
+    }
+  },
   created () {
   }
 }
@@ -122,7 +129,7 @@ th{
     padding: 0 20px;
     line-height: 40px;
   }
-  tbody>tr:hover {
+  tbody>tr:hover,.is-active {
     background-color: #1e2235;
   }
   .trans-tr:hover{
