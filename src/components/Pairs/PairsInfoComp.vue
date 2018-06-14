@@ -80,7 +80,6 @@ export default {
   watch: {},
   methods: {
     ...mapMutations([
-      'updateBaseCoin',
       'updateKlineSymbol'
     ])
   },

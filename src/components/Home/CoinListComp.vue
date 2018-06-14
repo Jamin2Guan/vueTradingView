@@ -12,40 +12,6 @@
             {{baseCoin}}
           </div>
           <div class="border">
-            <!--<el-table :data="Object.values(obj)"-->
-                      <!--row-class-name="pointer font-14"-->
-                      <!--size="small">-->
-              <!--<el-table-column label="交易对">-->
-                <!--<template slot-scope="scope">-->
-                  <!--<span>{{scope.row.symbol | getTargetCoin(baseCoin)}} <span class="color-weak">/ {{baseCoin}}</span></span>-->
-                <!--</template>-->
-              <!--</el-table-column>-->
-              <!--<el-table-column label="最新价">-->
-                <!--<template slot-scope="scope">-->
-                  <!--<obvious-price-comp :value="scope.row.close | sliceTo(8)" />-->
-                <!--</template>-->
-              <!--</el-table-column>-->
-              <!--<el-table-column label="涨幅">-->
-                <!--<template slot-scope="scope">-->
-                  <!--<span :class="scope.row | changeClass">{{(scope.row.close / scope.row.open -1) * 100 | signed}}%</span>-->
-                <!--</template>-->
-              <!--</el-table-column>-->
-              <!--<el-table-column label="最高价">-->
-                <!--<template slot-scope="scope">-->
-                  <!--<obvious-price-comp :value="scope.row.high | sliceTo(8)" />-->
-                <!--</template>-->
-              <!--</el-table-column>-->
-              <!--<el-table-column label="最低价">-->
-                <!--<template slot-scope="scope">-->
-                  <!--<obvious-price-comp :value="scope.row.low | sliceTo(8)" />-->
-                <!--</template>-->
-              <!--</el-table-column>-->
-              <!--<el-table-column label="24H量">-->
-                <!--<template slot-scope="scope">-->
-                  <!--<span>{{scope.row.vol | sliceTo(0)}} <span class="color-weak">{{scope.row.symbol | getTargetCoin(baseCoin)}}</span></span>-->
-                <!--</template>-->
-              <!--</el-table-column>-->
-            <!--</el-table>-->
             <div class="head-table pr-6">
               <table>
                 <colgroup>
@@ -76,7 +42,10 @@
                   <col class="w15">
                   <col class="w15">
                 </colgroup>
-                <tr v-for="(mkt, targetCoin) in  obj" :key="targetCoin" class="table-row">
+                <tr v-for="(mkt, targetCoin) in  obj"
+                    :key="targetCoin"
+                    @click="toExchange({baseCoin, targetCoin})"
+                    class="table-row">
                   <td>{{targetCoin}} <span class="color-weak">/ {{baseCoin}}</span></td>
                   <td>
                     <obvious-price-comp :value="mkt.close | sliceTo(8)" />
@@ -108,7 +77,7 @@
 <script>
 import ObviousPriceComp from '@c/ObviousPriceComp'
 import {createNamespacedHelpers} from 'vuex'
-const {mapState} = createNamespacedHelpers('pairs')
+const {mapState, mapMutations} = createNamespacedHelpers('pairs')
 
 export default {
   name: "coin-list-comp",
@@ -136,6 +105,20 @@ export default {
       else if (close < open) return 'el-icon-caret-bottom'
       else return ''
     }
+  },
+  methods: {
+    toExchange ({baseCoin, targetCoin}) {
+      this.updateKlineSymbol({
+        baseCoin,
+        targetCoin
+      })
+      this.$router.push({
+        name: 'Pairs'
+      })
+    },
+    ...mapMutations([
+      'updateKlineSymbol'
+    ])
   }
 }
 </script>
